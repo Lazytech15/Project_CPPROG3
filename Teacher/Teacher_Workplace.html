@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECR-GradeSync (eGS)</title>
+    <link rel="stylesheet" type="text/css" href="/teacher_workplace.css">
+    <link rel="stylesheet" type="text/css" href="/general.css">
+    <link rel="stylesheet" href="/pop-up.css">
+</head>
+
+
+<body>
+    <header>
+        <nav class="container navigation-bar">
+            <section class="primary-nav">
+                <span class="system-name">eCR-GradeCSync (eGCS) v1.0</span>
+                <button class="btn-logout" id="btn-logout" title="Log-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path
+                            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                    </svg>
+                </button>
+            </section>
+            <section class="secondary-nav">
+                <button class="submit-button" id="submit-button">Finalized</button>
+                <button class="clear-button" id="clear-button">Clear</button>
+                <span class="file-name" id="file-name"></span>
+            </section>
+        </nav>
+    </header>
+
+    <!--  -->
+    <main> 
+        <section class="container input-file-container"> 
+            <div class="dropzone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)"> 
+                <label for="input-file" class="input-label" > Drag your files here… </label> 
+                    <input id="input-file" type="file" accept=".csv" draggable="true" ondragstart="dragStartHandler(event)"/> 
+                </div> 
+            </section> 
+            <section class="container table-container"> 
+                <div class="table-sub-container">
+
+                </div>
+            </section>
+            <div id="myPopup" class="popup">
+                <div class="popup-content">
+                      <span id="pop-up-top">System Notice!</span>
+                      <br>
+                    <p id="pop-up-message"></p>
+                    <br>
+                    <a id="closePopup">Close</a>
+                </div>
+            </div>
+        </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script src="/Teacher_Workplace_view.js"></script>
+    <script type="module" src="/Teacher_Workplace_save.js"></script>   
+</body>
+
+</html>

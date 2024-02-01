@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/student_ui.css">
+    <title>Hackathon</title>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <section class="container navigation-bar">
+                <div class="logo_box">
+                    <!-- Logo goes here -->
+                </div>
+                <ul class="navigation-links">
+                    <li><button id="logout_btn">Logout</button></li>
+                </ul>
+            </section>
+        </nav>
+        <section class="user-info_box">
+            <span id="st-name">Student ID & Name:</span><p id="stname"></p> 
+            <label for="variableSelect" class="variableSelect">Select Semester: </label>
+            <select id="variableSelect">
+                <option value="1st">First Year</option>
+                <option value="2nd">Second Year</option>
+                <option value="3rd">Third Year</option>
+                <!-- Add more options as needed -->
+            </select>
+        </section>
+    </header>
+    <main>
+        <section class="mt-md">
+            <section class="container">
+                <div class="first_sem">
+                <table>
+                    <caption></span><span>SCHOOL YEAR:</span><span id="school_year"></span></caption>
+                    <tr id="first_sem_table">
+                        <th>Course Code</th>
+                        <th>Course Description</th>
+                        <th>TRIMESTER</th>
+                        <th>Prelim Grade</th>
+                        <th>Midterm Grade</th>
+                        <th>Final Grade</th>
+                        <th>REMARKS</th>
+                        <th>Section</th>
+                        <th>Instructor</th>
+                        <th>Credit Units</th>
+                    </tr>
+                    <tbody id="tbody1"></tbody>
+                </table>
+                
+            </section>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <!--
+    <script type="module" src="/student_ui.js"></script> 
+    -->
+    <script type="module" src="/student_ui_sample.js"></script>
+</body>
+
+</html>

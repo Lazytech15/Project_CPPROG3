@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>SIGNUP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="student_registration_new.css">
+    <link rel="stylesheet" href="student_registration.css">
+    <link rel="stylesheet" href="/pop-up.css">
+</head>
+
+<body class="place-center">
+    
+    <section class="container">
+        <div class=" forms"> 
+            <span class="labels mb-lg">Register</span>
+
+            <div class="register-container mb-md">
+                <div class="personal-data">
+                    <span class="sub-labels">Student ID: </span>
+                    <input class="inputs mb-sm" type="text" id="student-id" placeholder="Enter Student ID">
+                    <span class="sub-labels">Name: </span>
+                    <input class="inputs mb-xs" type="text" id="first-name" placeholder="First Name">
+                    <input class="inputs mb-xs" type="text" id="middle-initial" placeholder="M.I. (Optional)">
+                    <input class="inputs mb-sm" type="text" id="last-name" placeholder="Last Name">
+                    <span class="sub-labels">Password: </span>
+                    <input class="inputs" type="password" id="password" placeholder="Enter Password">
+                    <p style="font-size: smaller; color: red;"><i>For new users: <br>Please be aware that you won't be able to change your password after registration. </i></p>
+                    <div style="margin: 10px; font-size: smaller;">
+                        
+                    </div>
+                </div>
+
+                
+                <div class="subjects">
+                    <span class="sub-labels">Subject Verification: </span>
+                    <div class="subject-inputs">
+                        <div class="verif-form" style="width: 280px;">
+                            <input class="inputs mb-xs" id="sub1_verification" placeholder="Enter Code">
+                            <textarea class="veriflabel" id="verified1" placeholder=" --" disabled></textarea>
+                            <br>
+                            <input class="inputs mb-xs" id="sub2_verification" placeholder="Enter Code">
+                            <textarea class="veriflabel" id="verified2" placeholder=" --" disabled></textarea>
+                            <br>
+                            <input class="inputs mb-xs" id="sub3_verification" placeholder="Enter Code">
+                            <textarea class="veriflabel" id="verified3" placeholder=" --" disabled></textarea>
+                            <br>
+                            <input class="inputs mb-xs" id="sub4_verification" placeholder="Enter Code">
+                            <textarea class="veriflabel" id="verified4" placeholder=" --" disabled></textarea>
+                            <br>
+                            <input class="inputs mb-xs" id="sub5_verification" placeholder="Enter Code">
+                            <textarea class="veriflabel" id="verified5" placeholder=" --" disabled></textarea>
+                            <br>
+                            <input class="inputs mb-xs" id="sub6_verification" placeholder="Enter Code">
+                            <textarea class="veriflabel" id="verified6" placeholder=" --" disabled></textarea>
+                            <br>              
+                            
+                            <p style="font-size: smaller;"><i>Note: Make sure your subjects are complete and correct</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-ghost full" id="verify-button" title="Verify">Verify</button>
+            <button class="btn-solid full mb-lg" id="register_button">Register</button>
+            <p class="sub-labels txt-center">Already have an account? <b><a class="links" href="index.html">Log
+                        in</a></b>
+            </p>
+        </div>
+        </div>
+        <div id="myPopup" class="popup">
+            <div class="popup-content">
+                  <span id="pop-up-top">System Notice!</span>
+                  <br>
+                <p id="pop-up-message"></p>
+                <br>
+                <a id="closePopup">Close</a>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="/student_registration.js"></script>
+    <script>
+            document.getElementById('pop-up-message').innerHTML="For Verification, check your email inbox or spam for the verification codes of your subject";
+            document.getElementById('pop-up-message').style.textAlign = "center";
+            myPopup.classList.add("show");
+    </script>
+</body>
+
+</html>
