@@ -18,6 +18,9 @@ const firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
+  shouldExecute=false;
+  console.log(stdname);
+  console.log(student_id);
 
   const tbody=document.getElementById('tbody1');
  
@@ -31,16 +34,33 @@ const firebaseConfig = {
         /*
         for (let i = 0; i < student.length; i++) {
           const subcode = student[i].COURSE_CODE;
-          if(subcode+"semester"+"1st"==id){
-            tbody.id="tbody1";
-            AddAllItemToTable(student); 
+          if(subcode+"1st"+"1st"==id){
+            
+            console.log('true');
+        }else{
+          const tableHeaders = ['COURSE CODE', 
+                                  'COURSE DESCRIPTION', 
+                                  'TRIMESTER', 
+                                  'Pelim grades', 
+                                  'Midterm grades', 
+                                  'Final grades', 
+                                  'REMARKS', 
+                                  'SECTION', 
+                                  'Instructor',
+                                  'Credit units'];
+            const tableHeaderRow = document.createElement('tr');
+            for (const headerText of tableHeaders) {
+              const th = document.createElement('th');
+              th.textContent = headerText;
+              tableHeaderRow.appendChild(th);
+            }
+            const table = document.getElementById('table');
+            table.appendChild(tableHeaderRow);
+        
           }
-          else if(subcode+"semester"+"2nd"==id){
-            tbody.id="tbody2";
-            AddAllItemToTable(student);
-          }
-        }
-       */
+
+      }
+      */
       });
       AddAllItemToTable(student);
       
@@ -111,4 +131,10 @@ function AddAllItemToTable(sample){
       document.getElementById('school_year').innerHTML=element.ACADEMIC_YEAR;
   });
 }
+function exitlogout(){
+  window.open("/index.html");
+  window.close();
+  }
+    
+  logout_btn.addEventListener('click',exitlogout); 
   

@@ -9,8 +9,6 @@ const firebaseConfig = {
     messagingSenderId: "1071789540560",
     appId: "1:1071789540560:web:6227da20f3a3a3a9ab0ad5"
   };
-
-  export {}
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
@@ -26,19 +24,22 @@ const firebaseConfig = {
   var uname = document.getElementById("student_id");
   var upass = document.getElementById("password");
   var logbtn = document.getElementById("studLogin_button");
+  
+  export let student_id ="ID";
+  export let stdname ="NAME";
 
   //checking if there is an error in the program
-  try
-  {
+  //try
+  //{
 
   //checking the the data from firestore
-  async function GetaDocument(){
+  export async function GetaDocument(stdname,student_id){
   if(uname.value=="" || upass.value==""){
         document.getElementById('pop-up-message').innerHTML="Please input username & password first!";
         document.getElementById('pop-up-message').style.textAlign = "center";
         myPopup.classList.add("show"); 
     }else{
-    var ref = doc(db, "STUDENT_LIST","STUDENT_DATA", uname.value, "1st");
+    var ref = doc(db, "STUDENT_LIST","STUDENT_DATA", uname.value, "2nd");
     const docsnap = await getDoc(ref);
   //if the value is true then assign the collect data ('password') to a variable pass
     if(docsnap.exists()){
@@ -46,11 +47,11 @@ const firebaseConfig = {
   //if the value from the variable pass is equal to the value of upass that the user input/    
         if(pass == upass.value){
           //assigning data from firestore to variable
-          var student_id = docsnap.data().studentID;
-          var stdname = docsnap.data().name;
+          student_id = docsnap.data().studentID;
+          stdname = docsnap.data().name;
           //make it global to be able to access in different js file.
-          localStorage.setItem('student_id', student_id);
-          localStorage.setItem('stdname', stdname);
+          //localStorage.setItem('student_id', student_id);
+          //localStorage.setItem('stdname', stdname);
           //opening the student_UI
          window.open("student_ui.html")
          window.close();
@@ -58,7 +59,6 @@ const firebaseConfig = {
         }
         
         else{
-            alert("Incorrect Password");
             document.getElementById('pop-up-message').innerHTML="Incorrect Password";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show"); 
@@ -75,14 +75,16 @@ const firebaseConfig = {
     }
   }
 }
-  logbtn.addEventListener('click', GetaDocument);
+  logbtn.addEventListener('click', function() {
+      GetaDocument();
+  });
  
-}
+/*}
 //view the error in console
 catch(Error){
   console.log(Error);
   
-}
+}*/
 closePopup.addEventListener("click", function () {
   myPopup.classList.remove("show");
 });

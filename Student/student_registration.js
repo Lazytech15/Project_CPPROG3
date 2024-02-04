@@ -33,7 +33,9 @@ const firebaseConfig = {
 
 
     
-    var sub1_btn = document.getElementById('verify-button');
+    const sub1_btn = document.getElementById('verify-button');
+    const nextbutton = document.getElementById('next_button');
+    const backbutton = document.getElementById('back_button');
 
     let studID = document.getElementById('student-id');
     let fName = document.getElementById('first-name');
@@ -57,14 +59,14 @@ const firebaseConfig = {
     let verif5 = document.getElementById('verified5');
     let verif6 = document.getElementById('verified6');
 
-    let register_button = document.getElementById('register_button');
-
 try{
 function conditionStatement(){
 if (sub1.value == ""){
     document.getElementById('pop-up-message').innerHTML="Please Enter Verification First!";
     document.getElementById('pop-up-message').style.textAlign = "center";
-    myPopup.classList.add("show"); 
+    myPopup.classList.add("show");
+    HidePersonalData();
+    ShowSubjects(); 
     //make label blank just in case when verif code is cleared 
     verif1.value = ' --';
     verif2.value = ' --';
@@ -74,6 +76,8 @@ if (sub1.value == ""){
     verif6.value = ' --';
 }else if(sub2.value=="" && sub3.value=="" && sub4.value=="" && sub5.value=="" && sub6.value==""){
     sub1_verified();
+    HidePersonalData();
+    ShowSubjects();
     checksub=1;
     //make label blank just in case when verif code is cleared 
     verif2.value = ' --';
@@ -144,15 +148,22 @@ async function sub1_verified(){
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif1.value = cc1 + " - " + fn;
+        document.getElementById("next_button").style="display: block;";
+        document.getElementById("sub2_verification").style="display: inline-flex;";
+        document.getElementById("verified2").style="display:inline-flex;";
     }
         
     else{
         verif1.value = "Please recheck your verfication email!"
+        document.getElementById("next_button").style="display: none;";
+        ShowSubjects();
       }
           
 }
 else{
     verif1.value = "Verification does not exist";
+    document.getElementById("next_button").style="display: none;";
+    ShowSubjects();
     }
 }
 async function sub2_verified(){
@@ -165,15 +176,23 @@ async function sub2_verified(){
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif2.value = cc2 + " - " + fn;
+        document.getElementById("next_button").style="display: block;";
+        document.getElementById("sub3_verification").style="display: inline-flex;";
+        document.getElementById("verified3").style="display:inline-flex;";
+        
     }
         
     else{
         verif2.value = "Please recheck your verfication email!"
+        document.getElementById("next_button").style="display: none;";
+        ShowSubjects();
       }
           
 }
 else{
     verif2.value = "Verification does not exist";
+    document.getElementById("next_button").style="display: none;";
+    ShowSubjects();
     }
 }
 async function sub3_verified(){
@@ -186,15 +205,22 @@ async function sub3_verified(){
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif3.value = cc3 + " - " + fn;
+        document.getElementById("next_button").style="display: block;";
+        document.getElementById("sub4_verification").style="display: inline-flex;";
+        document.getElementById("verified4").style="display:inline-flex;";
     }
         
     else{
         verif3.value = "Please recheck your verfication email!"
+        document.getElementById("next_button").style="display: none;";
+        ShowSubjects();
       }
           
 }
 else{
     verif3.value = "Verification does not exist";
+    document.getElementById("next_button").style="display: none;";
+    ShowSubjects();
     }
 }
 async function sub4_verified(){
@@ -208,15 +234,22 @@ async function sub4_verified(){
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif4.value = cc4 + " - " + fn;
+        document.getElementById("next_button").style="display: block;";
+        document.getElementById("sub5_verification").style="display: inline-flex;";
+        document.getElementById("verified5").style="display:inline-flex;";
     }
         
     else{
         verif4.value = "Please recheck your verfication email!"
+        document.getElementById("next_button").style="display: none;";
+        ShowSubjects();
       }
           
 }
 else{
     verif4.value = "Verification does not exist";
+    document.getElementById("next_button").style="display: none;";
+    ShowSubjects();
     }
 }
 async function sub5_verified(){
@@ -229,15 +262,22 @@ async function sub5_verified(){
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif5.value = cc5 + " - " + fn;
+        document.getElementById("next_button").style="display: block;";
+        document.getElementById("sub6_verification").style="display: inline-flex;";
+        document.getElementById("verified6").style="display:inline-flex;";
     }
         
     else{
         verif5.value = "Please recheck your verfication email!"
+        document.getElementById("next_button").style="display: none;";
+        ShowSubjects();
       }
           
 }
 else{
     verif5.value = "Verification does not exist";
+    document.getElementById("next_button").style="display: none;";
+    ShowSubjects();
     }
 }
 
@@ -251,15 +291,26 @@ async function sub6_verified(){
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif6.value = cc6 + " - " + fn;
+        document.getElementById("next_button").style="display: block;";
+        document.getElementById("sub7_verification").style="display: inline-flex;";
+        document.getElementById("verified7").style="display:inline-flex;";
+        document.getElementById("subjects-image").style="display:none";
+        document.getElementById("verif-form-row2").style="display:inline-flex;";
+        document.getElementById("verif-form-row1").style="width: 300px;";
+
     }
         
     else{
         verif6.value = "Please recheck your verfication email!"
+        HidePersonalData();
+        ShowSubjects();
       }
           
 }
 else{
     verif6.value = "Verification does not exist";
+    HidePersonalData();
+    ShowSubjects();
     }
 }
 
@@ -269,6 +320,7 @@ function SaveRegistrationFrom(){
     try {
         if(studID.value=="" || fName.value=="" || lName.value=="" || password.value==""){
         alert("Please Finish the fill up first");
+        ShowPersonalData();
         }else if(checksub==1){
             var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
                 setDoc( 
@@ -281,7 +333,9 @@ function SaveRegistrationFrom(){
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show"); 
+            myPopup.classList.add("show");
+            HidePersonalData(); 
+            ShowSubjects();
             cleanUp();
             
         }else if(checksub==2){
@@ -297,7 +351,9 @@ function SaveRegistrationFrom(){
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show"); 
+            myPopup.classList.add("show");
+            HidePersonalData();
+            ShowSubjects(); 
             cleanUp();
         }else if(checksub==3){
             var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
@@ -314,6 +370,8 @@ function SaveRegistrationFrom(){
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show"); 
+            HidePersonalData();
+            ShowSubjects();
             cleanUp();
         }else if(checksub==4){
             var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
@@ -330,7 +388,9 @@ function SaveRegistrationFrom(){
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show"); 
+            myPopup.classList.add("show");
+            HidePersonalData();
+            ShowSubjects(); 
             cleanUp();
         }else if(checksub==5){
             var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
@@ -349,6 +409,8 @@ function SaveRegistrationFrom(){
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show"); 
+            HidePersonalData();
+            ShowSubjects();
             cleanUp();
             
         }else if(checksub==6){
@@ -368,18 +430,28 @@ function SaveRegistrationFrom(){
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show"); 
+            myPopup.classList.add("show");
+            HidePersonalData();
+            ShowSubjects(); 
             cleanUp();
             
         }
 
         
     } catch (error) {
-        alert(error)
+        document.getElementById('pop-up-message').innerHTML="Please Check the data you input before proceeding";
+        document.getElementById('pop-up-message').style.textAlign = "center";
+        myPopup.classList.add("show");
+        HidePersonalData();
+        ShowSubjects();
     }
 }
         sub1_btn.addEventListener('click',conditionStatement);
-
+        nextbutton.addEventListener('click',ShowPersonalData);
+        backbutton.addEventListener('click', function() {
+            HidePersonalData();
+            ShowSubjects();
+        });
             //confirmation for register
         document.getElementById("register_button").addEventListener("click", function() {
             // Ask for confirmation
@@ -409,6 +481,7 @@ function SaveRegistrationFrom(){
         sub4.value=""
         sub5.value=""
         sub6.value=""
+        verif1.value = ' --';
         verif2.value = ' --';
         verif3.value = ' --';
         verif4.value = ' --';
@@ -423,3 +496,24 @@ function SaveRegistrationFrom(){
         myPopup.classList.remove("show");
       }
       });
+      function HidePersonalData(){
+        document.getElementById("personal-data-container").style="display: none;";
+        document.getElementById("register_button").style="display: none;";
+        document.getElementById("personal-datawarning").style="display: none;";
+        }
+      function ShowPersonalData(){
+        document.getElementById("subjects-container").style="display: none;";
+        document.getElementById("verify-button").style="display: none;";
+        document.getElementById("subjects-warning").style="display: none;";
+        document.getElementById("next_button").style="display: none;";
+        document.getElementById("personal-data-container").style="display: flex;";
+        document.getElementById("register_button").style="display: block;";
+        document.getElementById("personal-datawarning").style="display: block;";
+        document.getElementById("back_button").style="display: block;";
+        }
+      function ShowSubjects(){
+        document.getElementById("subjects-container").style="display: block;";
+        document.getElementById("verify-button").style="display: block;";
+        document.getElementById("subjects-warning").style="display: block;";
+        document.getElementById("back_button").style="display: none;";
+        }

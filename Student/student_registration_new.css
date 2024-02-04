@@ -113,12 +113,9 @@ h6 {
 /* Forms */
 .forms {
     background-color: var(--clr-slate-50);
-   
-    max-width: 600px;
     padding: 2rem 2rem 3rem;
     box-shadow: var(--bx-shadow);
     border-radius: var(--brd-radius);
-    margin: 0 auto;
 }
 
 /* Labels */
@@ -136,27 +133,24 @@ h6 {
 
 .sub-labels {
     font-size: smaller;
-    color: var(--clr-slate-800);
+    color: white;
 }
-
-
-.veriflabel {
-    min-width: 30px;
-    max-width: 100%;
-    text-wrap:wrap;
-    overflow:hidden;
-}
-
-
-
 #sub1_verification,
 #sub2_verification,
 #sub3_verification,
 #sub4_verification,
 #sub5_verification,
-#sub6_verification {
+#sub6_verification,
+#sub7_verification,
+#sub8_verification,
+#sub9_verification,
+#sub10_verification,
+#sub11_verification,
+#sub12_verification {
     max-width: 100px;
     height: 45px;
+    background-color: transparent;
+    color: white;
 }
 
 
@@ -164,17 +158,18 @@ h6 {
 .inputs {
     padding: calc(var(--sm) - 5px);
     caret-color: var(--clr-secondary);
-    background-color: white;
-    color: var(--clr-slate-600);
+    color: white;
     border: 1px solid var(--clr-secondary);
     border-radius: var(--brd-radius);
     width: 100%;
     min-height: 40px;
     
+    
 }
 
 .veriflabel {
     background: transparent;
+    max-width: 100%;
     max-height: 100%;
     resize: none;
     overflow: hidden;
@@ -182,15 +177,17 @@ h6 {
     align-items: center;
     border: none;
     font-size: smaller;
+    text-wrap:wrap;
+    overflow:hidden;
 }
-
 .inputs::placeholder {
     font-size: smaller;
-    color: var(--clr-slate-400);
+    color: whitesmoke;
 }
 
 .inputs:focus {
     outline: 1px solid var(--clr-primary);
+    color: white;
 }
 
 /* Links */
@@ -227,6 +224,7 @@ h6 {
 }
 
 /* --util-place-item-center */
+
 .place-center {
     min-height: 100vh;
     display: grid;
@@ -244,46 +242,4 @@ h6 {
     margin-right: auto;
     padding-left: 1rem;
     padding-right: 1rem;
-}
-
-/* 2xl */
-@media (max-width: 1536px) {
-    .container {
-        max-width: 1280px;
-    }
-}
-
-/* xl */
-@media (max-width: 1280px) {
-    .container {
-        max-width: 1024px;
-    }
-}
-
-/* lg */
-@media (max-width: 1024px) {
-    .container {
-        max-width: 768px;
-    }
-}
-
-/* md */
-@media (max-width: 768px) {
-    .container {
-        max-width: 640px;
-    }
-}
-
-/* sm */
-@media (max-width: 640px) {
-    .container {
-        max-width: 475px;
-    }
-}
-
-/* xs */
-@media (max-width: 475px) {
-    .container {
-        width: 100%;
-    }
 }

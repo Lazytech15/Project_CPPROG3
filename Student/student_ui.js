@@ -252,10 +252,7 @@ const firebaseConfig = {
       selectedVariable = variableSelect.value;
       LoadDataAdvance();  
   }
-  function exitlogout(){
-  window.open("index.html");
-  window.close();
-  }
+  
     
   logout_btn.addEventListener('click',exitlogout);    
        
