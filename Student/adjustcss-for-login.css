@@ -60,7 +60,9 @@ body{
     border: 1px solid white;
     border-radius: 5px;
 }
-#copyright{
+footer{
+    bottom: 10px;
+    position: fixed;
     color: white;
 }
 @media (max-width: 480px) {
@@ -85,6 +87,7 @@ body{
         height: 330px;
         margin-left: -10px;
     }
+    
 }
 
 
