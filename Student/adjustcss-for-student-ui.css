@@ -11,6 +11,8 @@ body{
     color: white;
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
+    height: 100vh;
+    width:auto;
 }
 .captionbutton-container{
     display: flex;
@@ -88,31 +90,6 @@ span{
     font-weight: 400;
     text-align: center; 
 }
-@media (max-width: 700px) {
-    .user-info{
-        display: block;
-    }
-    #st-name, span{
-        margin: 0px;
-        padding: 0px;
-    }
-    #select-year{
-        display: block;
-        position: relative;
-        margin: 0px;
-    }
-    .table-design{
-        
-        overflow-x: auto;
-    }
-    .table{
-        display: block;
-        max-height: 68.9vh;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-    
-}
 @media (max-width: 1000px) {
     .user-info{
         display: block;
@@ -136,3 +113,34 @@ span{
     }
     
 }
+@media (max-width: 700px) {
+   .captionbutton-container{
+     display: block;
+     width:auto;
+    }
+    .user-info{
+        display: block;
+    }
+    #st-name, span{
+        margin: 0px;
+        padding: 0px;
+    }
+    #select-year{
+        display: block;
+        position: relative;
+        margin: 0px;
+    }
+    .table-design{
+        margin-top:10px;
+        overflow-x: auto;
+    }
+    .table{
+        display: block;
+        max-height: 100vh;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    #copyright{
+      margin-top:100px;
+    }
+}

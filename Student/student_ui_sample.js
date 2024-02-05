@@ -18,9 +18,6 @@ const firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-  shouldExecute=false;
-  console.log(stdname);
-  console.log(student_id);
 
   const tbody=document.getElementById('tbody1');
  
@@ -132,7 +129,7 @@ function AddAllItemToTable(sample){
   });
 }
 function exitlogout(){
-  window.open("/index.html");
+  window.open("index.html");
   window.close();
   }
     

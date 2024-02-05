@@ -20,19 +20,8 @@ const firebaseConfig = {
 
   const db = getFirestore();
 
-  var cc1;
-  var cc2;
-  var cc3;
-  var cc4;
-  var cc5;
-  var cc6;
-  var checksub;
-  var fn;
-  var fnid;
-  var tri;
+  var cc1,cc2,cc3,cc4,cc5,cc6,checksub,fn,fnid,studentemail,tri;
 
-
-    
     const sub1_btn = document.getElementById('verify-button');
     const nextbutton = document.getElementById('next_button');
     const backbutton = document.getElementById('back_button');
@@ -144,7 +133,8 @@ async function sub1_verified(){
         var student_id = docsnap.data().StudentID;
         if(student_id == studID.value){
         cc1 = docsnap.data().CourseCode;
-        tri = docsnap.data().sem;
+        studentemail = docsnap.data().StudentEmail;
+        tri = docsnap.data().sem;    
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif1.value = cc1 + " - " + fn;
@@ -154,7 +144,7 @@ async function sub1_verified(){
     }
         
     else{
-        verif1.value = "Please recheck your verfication email!"
+        verif1.value = "Please check your verfication on email!"
         document.getElementById("next_button").style="display: none;";
         ShowSubjects();
       }
@@ -183,7 +173,7 @@ async function sub2_verified(){
     }
         
     else{
-        verif2.value = "Please recheck your verfication email!"
+        verif2.value = "Please check your verfication on email!"
         document.getElementById("next_button").style="display: none;";
         ShowSubjects();
       }
@@ -211,7 +201,7 @@ async function sub3_verified(){
     }
         
     else{
-        verif3.value = "Please recheck your verfication email!"
+        verif3.value = "Please check your verfication on email!"
         document.getElementById("next_button").style="display: none;";
         ShowSubjects();
       }
@@ -240,7 +230,7 @@ async function sub4_verified(){
     }
         
     else{
-        verif4.value = "Please recheck your verfication email!"
+        verif4.value = "Please check your verfication on email!"
         document.getElementById("next_button").style="display: none;";
         ShowSubjects();
       }
@@ -268,7 +258,7 @@ async function sub5_verified(){
     }
         
     else{
-        verif5.value = "Please recheck your verfication email!"
+        verif5.value = "Please check your verfication on email!"
         document.getElementById("next_button").style="display: none;";
         ShowSubjects();
       }
@@ -301,7 +291,7 @@ async function sub6_verified(){
     }
         
     else{
-        verif6.value = "Please recheck your verfication email!"
+        verif6.value = "Please check your verfication on email!"
         HidePersonalData();
         ShowSubjects();
       }
@@ -322,12 +312,13 @@ function SaveRegistrationFrom(){
         alert("Please Finish the fill up first");
         ShowPersonalData();
         }else if(checksub==1){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
+            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
                 studentID : studID.value,
                 name : fName.value + " " + mI.value +" "+ lName.value,
                 password : password.value,
+                StudentEmail : studentemail,    
                 trimester : tri,
                 subOne : cc1
             })
@@ -339,7 +330,7 @@ function SaveRegistrationFrom(){
             cleanUp();
             
         }else if(checksub==2){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
+            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
                 studentID : studID.value,
@@ -356,7 +347,7 @@ function SaveRegistrationFrom(){
             ShowSubjects(); 
             cleanUp();
         }else if(checksub==3){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
+            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
                 studentID : studID.value,
@@ -374,7 +365,7 @@ function SaveRegistrationFrom(){
             ShowSubjects();
             cleanUp();
         }else if(checksub==4){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
+            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
                 studentID : studID.value,
@@ -393,7 +384,7 @@ function SaveRegistrationFrom(){
             ShowSubjects(); 
             cleanUp();
         }else if(checksub==5){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
+            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
                 studentID : studID.value,
@@ -414,7 +405,7 @@ function SaveRegistrationFrom(){
             cleanUp();
             
         }else if(checksub==6){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,tri);
+            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
                 studentID : studID.value,
@@ -451,6 +442,7 @@ function SaveRegistrationFrom(){
         backbutton.addEventListener('click', function() {
             HidePersonalData();
             ShowSubjects();
+            document.getElementById("next_button").style="display: block;";
         });
             //confirmation for register
         document.getElementById("register_button").addEventListener("click", function() {
@@ -460,6 +452,7 @@ function SaveRegistrationFrom(){
             // Check the user's response
             if (userConfirmation) {
                 SaveRegistrationFrom()
+                
 
             } else {
 
@@ -487,6 +480,16 @@ function SaveRegistrationFrom(){
         verif4.value = ' --';
         verif5.value = ' --';
         verif6.value = ' --';
+        document.getElementById("sub2_verification").style="display: none;";
+        document.getElementById("verified2").style="display: none;";
+        document.getElementById("sub3_verification").style="display: none;";
+        document.getElementById("verified3").style="display: none;";
+        document.getElementById("sub4_verification").style="display: none;";
+        document.getElementById("verified4").style="display: none;";
+        document.getElementById("sub5_verification").style="display: none;";
+        document.getElementById("verified5").style="display: none;";
+        document.getElementById("sub6_verification").style="display: none;";
+        document.getElementById("verified6").style="display: none;";
     }
     closePopup.addEventListener("click", function () {
         myPopup.classList.remove("show");
