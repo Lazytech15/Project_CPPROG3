@@ -1,3 +1,6 @@
+//remove from the folder
+/*
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 
 const firebaseConfig = {
@@ -136,4 +139,6 @@ function exitlogout(){
   }
     
   logout_btn.addEventListener('click',exitlogout); 
+
+  */
   
