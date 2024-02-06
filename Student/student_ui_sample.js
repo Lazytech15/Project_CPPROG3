@@ -1,3 +1,5 @@
+//remove from the folder
+/*
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 
 const firebaseConfig = {
@@ -57,7 +59,6 @@ const firebaseConfig = {
           }
 
       }
-      */
       });
       AddAllItemToTable(student);
       
@@ -130,6 +131,7 @@ function AddAllItemToTable(sample){
 }
 function exitlogout(){
   window.open("index.html");
+    */
   window.close();
   }
     
