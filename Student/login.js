@@ -38,6 +38,7 @@ const firebaseConfig = {
     }else{
     var ref = doc(db, "STUDENT_LIST","STUDENT_DATA", uname.value, upass.value);
     const docsnap = await getDoc(ref);
+    const UserData =[];
   //if the value is true then assign the collect data ('password') to a variable pass
     if(docsnap.exists()){
         var pass = docsnap.data().password;
@@ -46,13 +47,24 @@ const firebaseConfig = {
           //assigning data from firestore to variable
           var student_id = docsnap.data().studentID;
           var stdname = docsnap.data().name;
+          var subs = docsnap.data().subjects;
+          var tri = docsnap.data().trimester;
+          UserData.push({student_id,stdname,subs,tri});
+          const UserDataTransfer = JSON.stringify(UserData);
+          localStorage.setItem('UserData', UserDataTransfer);
           //make it global to be able to access in different js file.
+          /*
           localStorage.setItem('student_id', student_id);
           localStorage.setItem('stdname', stdname);
+          localStorage.setItem('upassword', pass);
+          localStorage.setItem('subs1', subs1);
+          localStorage.setItem('tri', tri);
           //opening the student_UI
-         window.open("student_ui.html")
-         window.close();
-      
+         
+          */
+          window.open("student_ui.html")
+          window.close();
+          
         }
         
         else{

@@ -18,114 +18,230 @@ const firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
+  let firstuniqueStudentData;
+  let student_id,tri;
+  let subs = [];
+
+  const storedData = localStorage.getItem('UserData');
+
+  try {
+    const studentsub =[];
+    const userData = JSON.parse(storedData); 
+    userData.forEach((studentdata) => {
+      student_id = studentdata.student_id;
+      tri = studentdata.tri;
+      studentsub.push(studentdata.subs);
+      studentsub.forEach((subject) => {
+        subs = [...subject];
+    });
+    });
+  } catch (error) {
+    console.error('Error accessing data:', error);
+  }
+  
+
+
+  
   
   function Getalldata() {
-    db.collection(localStorage.getItem('student_id')).orderBy('createdAt').get().then((querySnapshot) => {
+    db.collection(student_id).orderBy('createdAt').get().then((querySnapshot) => {
         const firsttrimester = [];
         const secondtrimester = [];
         const thirdtrimester = [];
+        const unknowndata =[];
 
         querySnapshot.forEach((studentdata) => {
             const data = studentdata.data();
             const id = studentdata.id;
-            
-            // condition Statement: If the trimester is not equal to 1st/2nd/3rd
-            if (data.TRIMESTER =="1st") {
-                firsttrimester.push({ ...data, id });
-            } else if (data.TRIMESTER == "2nd") {
-                secondtrimester.push({ ...data, id });
-            }else{
-                thirdtrimester.push({ ...data, id });
+            const subject = studentdata.data().COURSE_CODE;
+            /*
+            if(subs.includes(subject)){
+                console.log('true');
             }
+            else{
+                console.log("error");
+            }
+            */
+            let datasection;
+            let intersection = subs.filter((element) => 
+                               subject.includes(element));
+                               
+            intersection.forEach((sectiondata)=>{
+                 datasection = (sectiondata);
+            })
+    if (datasection === id ) {
+    
+    unknowndata.push({ ...data});
+    unknowndata.forEach((studentdata) => {
+        // Organize data by trimester
+        if (studentdata.TRIMESTER === "1st" /*&& subject !== firstuniqueStudentData.COURSE_CODE*/) {
+            firsttrimester.push({ ...data });
+        } else if (studentdata.TRIMESTER === "2nd") {
+            secondtrimester.push({ ...data });
+        } else {
+            thirdtrimester.push({ ...data });
+            console.log('data3');
+        }
+        
+    });
+    }
+       
+            
         });
 
         // Call a function to display
+
         FirsttrimesterDisplay(firsttrimester);
         SecondtrimesterDisplay(secondtrimester);
         ThirdtrimesterDisplay(thirdtrimester);
+
+        
     });
 }
 
-function FirsttrimesterDisplay(studentData) {
+function FirsttrimesterDisplay(firsttrimester) {
     const tableBody = document.getElementById('firsttrimester');
+const uniqueStudentData = [...new Set(firsttrimester)];
 
-    // Clear existing table rows (if any)
-    tableBody.innerHTML = '';
+// Clear existing table rows (if any)
+tableBody.innerHTML = '';
 
-    // Populate the table
-    studentData.forEach((student) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${student.COURSE_CODE}</td>
-            <td>${student.COURSE_DESCRIPTION}</td>
-            <td>${student.TRIMESTER}</td>
-            <td>${student.PRELIM}</td>
-            <td>${student.MIDTERM}</td>
-            <td>${student.FINALS}</td>
-            <td>${student.REMARK}</td>
-            <td>${student.SECTION}</td>
-            <td>${student.FACULTY_NAME}</td>
-            <td>${student.CREDIT_UNITS}</td>
-        `;
-        document.getElementById('stname').innerHTML=student.STUDENT_NAME;
-        document.getElementById('school_year').innerHTML=student.ACADEMIC_YEAR;
-        tableBody.appendChild(row);
-    });
+// Keep track of the previously added student data
+let prevStudent = null;
+
+// Populate the table
+uniqueStudentData.forEach((student) => {
+    // Check if the current student data is different from the previous one
+    if (!prevStudent || JSON.stringify(student) !== JSON.stringify(prevStudent)) {
+        // Check if the student's TRIMESTER matches any existing value in the third column
+        const existingRow = Array.from(tableBody.getElementsByTagName('tr')).find((row) => {
+            const thirdColumnCell = row.querySelector('td:nth-child(3)');
+            return thirdColumnCell && thirdColumnCell.textContent !== student.TRIMESTER;
+        });
+
+        if (!existingRow) {
+            // Create a new row if no matching row exists
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.COURSE_CODE}</td>
+                <td>${student.COURSE_DESCRIPTION}</td>
+                <td>${student.TRIMESTER}</td>
+                <td>${student.PRELIM}</td>
+                <td>${student.MIDTERM}</td>
+                <td>${student.FINALS}</td>
+                <td>${student.REMARK}</td>
+                <td>${student.SECTION}</td>
+                <td>${student.FACULTY_NAME}</td>
+                <td>${student.CREDIT_UNITS}</td>
+            `;
+            document.getElementById('stname').innerHTML = student.STUDENT_NAME;
+            document.getElementById('school_year').innerHTML = student.ACADEMIC_YEAR;
+            tableBody.appendChild(row);
+
+            // Update the previous student data
+            prevStudent = student;
+        }
+    }
+});
+    
 }
 
-function SecondtrimesterDisplay(secondtriData) {
-    const nonMatchingTableBody = document.getElementById('secondtrimester');
-    if(secondtriData==""){
-        document.getElementById('table2').style="display:none";
-    }else{
-    // Clear existing rows (if any)
-    nonMatchingTableBody.innerHTML = '';
+function SecondtrimesterDisplay(secondtrimester) {
+    const tableBody = document.getElementById('secondtrimester');
+const uniqueStudentData = [...new Set(secondtrimester)];
+if (secondtrimester.length === 0) {
+    document.getElementById('table2').style.display = 'none';
+} else {
+// Clear existing table rows (if any)
+tableBody.innerHTML = '';
 
-    // Populate the non-matching table
-    secondtriData.forEach((student) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-        <td>${student.COURSE_CODE}</td>
-        <td>${student.COURSE_DESCRIPTION}</td>
-        <td>${student.TRIMESTER}</td>
-        <td>${student.PRELIM}</td>
-        <td>${student.MIDTERM}</td>
-        <td>${student.FINALS}</td>
-        <td>${student.REMARK}</td>
-        <td>${student.SECTION}</td>
-        <td>${student.FACULTY_NAME}</td>
-        <td>${student.CREDIT_UNITS}</td>
-        `;
-        nonMatchingTableBody.appendChild(row);
-            });
+// Keep track of the previously added student data
+let prevStudent = null;
+
+// Populate the table
+uniqueStudentData.forEach((student) => {
+    // Check if the current student data is different from the previous one
+    if (!prevStudent || JSON.stringify(student) !== JSON.stringify(prevStudent)) {
+        // Check if the student's TRIMESTER matches any existing value in the third column
+        const existingRow = Array.from(tableBody.getElementsByTagName('tr')).find((row) => {
+            const thirdColumnCell = row.querySelector('td:nth-child(3)');
+            return thirdColumnCell && thirdColumnCell.textContent !== student.TRIMESTER;
+        });
+
+        if (!existingRow) {
+            // Create a new row if no matching row exists
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.COURSE_CODE}</td>
+                <td>${student.COURSE_DESCRIPTION}</td>
+                <td>${student.TRIMESTER}</td>
+                <td>${student.PRELIM}</td>
+                <td>${student.MIDTERM}</td>
+                <td>${student.FINALS}</td>
+                <td>${student.REMARK}</td>
+                <td>${student.SECTION}</td>
+                <td>${student.FACULTY_NAME}</td>
+                <td>${student.CREDIT_UNITS}</td>
+            `;
+            document.getElementById('stname').innerHTML = student.STUDENT_NAME;
+            document.getElementById('school_year').innerHTML = student.ACADEMIC_YEAR;
+            tableBody.appendChild(row);
+
+            // Update the previous student data
+            prevStudent = student;
         }
+    }
+});
+}
 }
 function ThirdtrimesterDisplay(thirdtriData) {
-    const nonMatchingTableBody = document.getElementById('thirdtrimester');
-    if(thirdtriData==""){
-        document.getElementById('table3').style="display:none";
-    }else{
-    // Clear existing rows (if any)
-    nonMatchingTableBody.innerHTML = '';
+    const tableBody = document.getElementById('thirdtrimester');
+    const uniqueStudentData = [...new Set(thirdtriData)];
+    console.log(thirdtriData);
+if (thirdtriData.length === 0) {
+    document.getElementById('table3').style.display = 'none';
+} else {
+// Clear existing table rows (if any)
+tableBody.innerHTML = '';
 
-    // Populate the non-matching table
-    thirdtriData.forEach((student) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-        <td>${student.COURSE_CODE}</td>
-        <td>${student.COURSE_DESCRIPTION}</td>
-        <td>${student.TRIMESTER}</td>
-        <td>${student.PRELIM}</td>
-        <td>${student.MIDTERM}</td>
-        <td>${student.FINALS}</td>
-        <td>${student.REMARK}</td>
-        <td>${student.SECTION}</td>
-        <td>${student.FACULTY_NAME}</td>
-        <td>${student.CREDIT_UNITS}</td>
-        `;
-        nonMatchingTableBody.appendChild(row);
-            });
+// Keep track of the previously added student data
+let prevStudent = null;
+
+// Populate the table
+uniqueStudentData.forEach((student) => {
+    // Check if the current student data is different from the previous one
+    if (!prevStudent || JSON.stringify(student) !== JSON.stringify(prevStudent)) {
+        // Check if the student's TRIMESTER matches any existing value in the third column
+        const existingRow = Array.from(tableBody.getElementsByTagName('tr')).find((row) => {
+            const thirdColumnCell = row.querySelector('td:nth-child(3)');
+            return thirdColumnCell && thirdColumnCell.textContent !== student.TRIMESTER;
+        });
+
+        if (!existingRow) {
+            // Create a new row if no matching row exists
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.COURSE_CODE}</td>
+                <td>${student.COURSE_DESCRIPTION}</td>
+                <td>${student.TRIMESTER}</td>
+                <td>${student.PRELIM}</td>
+                <td>${student.MIDTERM}</td>
+                <td>${student.FINALS}</td>
+                <td>${student.REMARK}</td>
+                <td>${student.SECTION}</td>
+                <td>${student.FACULTY_NAME}</td>
+                <td>${student.CREDIT_UNITS}</td>
+            `;
+            document.getElementById('stname').innerHTML = student.STUDENT_NAME;
+            document.getElementById('school_year').innerHTML = student.ACADEMIC_YEAR;
+            tableBody.appendChild(row);
+
+            // Update the previous student data
+            prevStudent = student;
         }
+    }
+});
+}
 }
   
   window.onload = Getalldata;

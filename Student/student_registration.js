@@ -20,7 +20,14 @@ const firebaseConfig = {
 
   const db = getFirestore();
 
-  var cc1,cc2,cc3,cc4,cc5,cc6,checksub,fn,fnid,studentemail,tri;
+  var checksub,fn,fnid,studentemail,tri;
+  let cc1="";
+  let cc2="";
+  let cc3="";
+  let cc4="";
+  let cc5="";
+  let cc6="";
+  const AllSubsData = [];
 
     const sub1_btn = document.getElementById('verify-button');
     const nextbutton = document.getElementById('next_button');
@@ -166,6 +173,7 @@ async function sub2_verified(){
         fn = docsnap.data().TeacherName;
         fnid = docsnap.data().TeacherID;
         verif2.value = cc2 + " - " + fn;
+        console.log(AllSubsData);
         document.getElementById("next_button").style="display: block;";
         document.getElementById("sub3_verification").style="display: inline-flex;";
         document.getElementById("verified3").style="display:inline-flex;";
@@ -305,8 +313,23 @@ else{
 }
 
 
-
-function SaveRegistrationFrom(){
+async function SaveRegistrationFrom(){
+    const currentData =[];
+    let subjectsData =[];
+    AllSubsData.push(cc1,cc2,cc3,cc4,cc5,cc6);
+    var ref = doc(db, "STUDENT_LIST","STUDENT_DATA", studID.value, password.value);
+    const docsnap = await getDoc(ref);
+    if(docsnap.exists()){
+        currentData.push(docsnap.data().subjects);
+        currentData.forEach((subject) => {
+            subjectsData = [...subject, ...AllSubsData];
+            console.log(subjectsData);
+        });
+        
+    }else{
+        subjectsData = [...AllSubsData];
+        console.log(subjectsData);
+    }
     try {
         if(studID.value=="" || fName.value=="" || lName.value=="" || password.value==""){
         alert("Please Finish the fill up first");
@@ -315,12 +338,11 @@ function SaveRegistrationFrom(){
             var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
-                studentID : studID.value,
-                name : fName.value + " " + mI.value +" "+ lName.value,
-                password : password.value,
-                StudentEmail : studentemail,    
-                trimester : tri,
-                subOne : cc1
+                    studentID : studID.value,
+                    name : fName.value + " " + mI.value +" "+ lName.value,
+                    password : password.value,
+                    trimester : tri,
+                    subjects : subjectsData.flat().filter((subject) => subject),
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
@@ -337,8 +359,7 @@ function SaveRegistrationFrom(){
                 name : fName.value + " " + mI.value +" "+ lName.value,
                 password : password.value,
                 trimester : tri,
-                subOne : cc1,
-                subTwo : cc2
+                subjects : subjectsData.flat().filter((subject) => subject),
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
@@ -354,9 +375,7 @@ function SaveRegistrationFrom(){
                 name : fName.value + " " + mI.value +" "+ lName.value,
                 password : password.value,
                 trimester : tri,
-                subOne : cc1,
-                subTwo : cc2,
-                subThree : cc3
+                subjects : subjectsData.flat().filter((subject) => subject),
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
@@ -372,10 +391,7 @@ function SaveRegistrationFrom(){
                 name : fName.value + " " + mI.value +" "+ lName.value,
                 password : password.value,
                 trimester : tri,
-                subOne : cc1,
-                subTwo : cc2,
-                subThree : cc3,
-                subFour : cc4
+                subjects : subjectsData.flat().filter((subject) => subject),
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
@@ -391,11 +407,7 @@ function SaveRegistrationFrom(){
                 name : fName.value + " " + mI.value +" "+ lName.value,
                 password : password.value,
                 trimester : tri,
-                subOne : cc1,
-                subTwo : cc2,
-                subThree : cc3,
-                subFour : cc4,
-                subFive : cc5
+                subjects : subjectsData.flat().filter((subject) => subject),
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
@@ -412,12 +424,7 @@ function SaveRegistrationFrom(){
                 name : fName.value + " " + mI.value +" "+ lName.value,
                 password : password.value,
                 trimester : tri,
-                subOne : cc1,
-                subTwo : cc2,
-                subThree : cc3,
-                subFour : cc4,
-                subFive : cc5,
-                subSix : cc6
+                subjects : subjectsData.flat().filter((subject) => subject),
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
@@ -430,12 +437,14 @@ function SaveRegistrationFrom(){
 
         
     } catch (error) {
+        console.log(error);
         document.getElementById('pop-up-message').innerHTML="Please Check the data you input before proceeding";
         document.getElementById('pop-up-message').style.textAlign = "center";
         myPopup.classList.add("show");
         HidePersonalData();
         ShowSubjects();
     }
+    
 }
         sub1_btn.addEventListener('click',conditionStatement);
         nextbutton.addEventListener('click',ShowPersonalData);
