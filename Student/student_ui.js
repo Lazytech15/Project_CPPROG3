@@ -54,14 +54,7 @@ const firebaseConfig = {
             const data = studentdata.data();
             const id = studentdata.id;
             const subject = studentdata.data().COURSE_CODE;
-            /*
-            if(subs.includes(subject)){
-                console.log('true');
-            }
-            else{
-                console.log("error");
-            }
-            */
+        
             let datasection;
             let intersection = subs.filter((element) => 
                                subject.includes(element));
@@ -80,7 +73,6 @@ const firebaseConfig = {
             secondtrimester.push({ ...data });
         } else {
             thirdtrimester.push({ ...data });
-            console.log('data3');
         }
         
     });
@@ -197,7 +189,6 @@ uniqueStudentData.forEach((student) => {
 function ThirdtrimesterDisplay(thirdtriData) {
     const tableBody = document.getElementById('thirdtrimester');
     const uniqueStudentData = [...new Set(thirdtriData)];
-    console.log(thirdtriData);
 if (thirdtriData.length === 0) {
     document.getElementById('table3').style.display = 'none';
 } else {

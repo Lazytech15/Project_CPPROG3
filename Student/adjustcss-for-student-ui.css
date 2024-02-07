@@ -85,10 +85,15 @@ span{
     padding-right: 40px;
     margin-bottom: 35px;
 }
-#copyright{
+footer{
+    position: sticky;
+    bottom: 0;
+}
+footer p{
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    text-align: center; 
+    text-align: center;
+    color: white; 
 }
 @media (max-width: 1000px) {
     .user-info{
@@ -140,7 +145,8 @@ span{
         overflow-x: auto;
         white-space: nowrap;
     }
-    #copyright{
-      margin-top:100px;
-    }
-}
+    footer{
+        position: fixed;
+        bottom: 50px;
+    }
+}

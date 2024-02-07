@@ -26,8 +26,8 @@ const firebaseConfig = {
   var logbtn = document.getElementById("studLogin_button");
 
   //checking if there is an error in the program
-  //try
-  //{
+  try
+  {
 
   //checking the the data from firestore
   async function GetaDocument(stdname,student_id){
@@ -51,17 +51,8 @@ const firebaseConfig = {
           var tri = docsnap.data().trimester;
           UserData.push({student_id,stdname,subs,tri});
           const UserDataTransfer = JSON.stringify(UserData);
-          localStorage.setItem('UserData', UserDataTransfer);
           //make it global to be able to access in different js file.
-          /*
-          localStorage.setItem('student_id', student_id);
-          localStorage.setItem('stdname', stdname);
-          localStorage.setItem('upassword', pass);
-          localStorage.setItem('subs1', subs1);
-          localStorage.setItem('tri', tri);
-          //opening the student_UI
-         
-          */
+          localStorage.setItem('UserData', UserDataTransfer);
           window.open("student_ui.html")
           window.close();
           
@@ -90,10 +81,9 @@ const firebaseConfig = {
  
 
 //view the error in console
-//catch(Error){
-  //console.log(Error);
-  
-//}
+}catch(Error){
+  console.log(Error);
+  }
 closePopup.addEventListener("click", function () {
   myPopup.classList.remove("show");
 });
