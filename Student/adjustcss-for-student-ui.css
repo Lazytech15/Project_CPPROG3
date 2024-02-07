@@ -123,6 +123,9 @@ footer p{
      display: block;
      width:auto;
     }
+    .container{
+      height: 100vh;
+    }
     .user-info{
         display: block;
     }
@@ -145,8 +148,10 @@ footer p{
         overflow-x: auto;
         white-space: nowrap;
     }
-    footer{
-        position: fixed;
-        bottom: 50px;
+    #myPopup{
+      margin-top:110px;
     }
+    footer{
+       bottom: 20px;
+   }
 }

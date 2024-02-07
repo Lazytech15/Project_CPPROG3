@@ -79,7 +79,7 @@ footer{
 footer p{
     color: white;
 }
-@media (max-width: 480px) {
+@media (max-width: 700px) {
     #for-student-login-formBackground{
         height: 400px;
     }
@@ -87,6 +87,7 @@ footer p{
         display: none;
     }
     .container{
+        margin-top:-130px;
         width: 350px;
     }
     #student_id,
@@ -94,14 +95,19 @@ footer p{
     #studLogin_button,
     #check-account,
     #std-login-header{
-    width: 250px;
+        width: 250px;
     }
     .image-container{
         width: 270px;
         height: 330px;
         margin-left: -10px;
     }
-    
+    #myPopup{
+      margin-top:110px;
+    }
+    footer{
+       bottom: 80px;
+}
 }
 
 

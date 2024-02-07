@@ -158,7 +158,8 @@ footer{
     .container{
         display: flex;
         justify-content: center;
-        width: 100vw;  
+        width: 100vw;
+        margin-top:30px;
     }
     .subject-inputs{
         display: block;
@@ -167,6 +168,13 @@ footer{
    .personal-data-image{
         display: none;
    }
+   #myPopup{
+      margin-top:110px;
+    }
+    footer{
+       bottom: 80px;
+       position: fixed;
+}
 }
 @media (max-width:375px) {
     .registrationbtn-container{
@@ -190,4 +198,5 @@ footer{
     #verif-form-row2 input{
         width: 100px;
     }
+    
 }
