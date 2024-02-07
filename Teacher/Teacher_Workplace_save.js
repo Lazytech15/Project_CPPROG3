@@ -64,7 +64,7 @@ const submitBtn = document.getElementById('submit-button');
                      
         
                     //for Verification Only
-                if(prelim == "" && midterm=="" && finals==""){
+                /*if(prelim == "" && midterm=="" && finals==""){
                     var ref = doc(db, stdnum,cc+trimester+trimester);
                     setDoc(
                     ref, {
@@ -121,6 +121,7 @@ const submitBtn = document.getElementById('submit-button');
                                 + "<br> Teacher Name: " + teacher_name
                                 + "<br> Course Enrolled: " + cc
                                 + "<br><h2> Verfication Code: " + verificationCode   
+                                + "<br><h2> Prelims Grade: " + prelim 
                                 + "</h2><br>"
                                 + "<br> <h4><i>Just copy and paste your subject verification code<i></h4>"
                                 + "<p style='text-align: center;'><i><b>Note: Make sure you have received all your Subjects' verification code for this trimester before you register</b></i></p>"
@@ -146,9 +147,10 @@ const submitBtn = document.getElementById('submit-button');
                         .catch((error)=>{
                             alert("Added failed:"+error);
                         });
-    
+                */
+
                         //For Prelim Grades Only
-                }else if(midterm=="" && finals==""){
+                if(midterm=="" && finals==""){
                     var ref = doc(db, stdnum,cc+trimester+trimester);
                     setDoc(
                     ref, {
@@ -172,50 +174,68 @@ const submitBtn = document.getElementById('submit-button');
                         }
                         
                     )
-    
+                        
+                    generateVerifCode();
+                        var verificationCode = generateVerifCode();
+                        var ref = doc(db, "GENERATE_CODE", verificationCode);
+                            setDoc(
+                            ref, {
+                                StudentID : stdnum,
+                                CourseCode : cc,
+                                TeacherName : teacher_name,
+                                TeacherID : teacher_id,
+                                sem : trimester,
+                                StudentEmail : email
+                                }
+                            )
                     //send email for Prelim grade
-                    Email.send({
-                        Host : "smtp.elasticemail.com",
-                        Username : "guzmancarlo.123@gmail.com",
-                        Password : "EC1DDABA0B7E4D10378C0E9FCCD26459D54D",
-                        To : email,
-                        From : "ecr.gradecloudsync@gmail.com",
-                        Subject : "Prelims Grade in " + cc + " Now Available for Viewing" ,
-                        Body : "<b><h1>Dear, " + stdname
-                            + "</h1><h4> Welcome to eCR-GradeCSync (eGCS) – Your Academic Hub for streamlined grading and transparent student evaluation at ICCT COLLEGE!" 
-                            + "<br> Thank you for choosing eCR-GradeCSync (eGCS) to enhance your academic experience. We are thrilled to have you on board."
-    
-                            + "</h4></b><br>"
-                            + "<br> Grade Details: " 
-                            + "<br>"
-                            + "<br> Student ID: " + stdnum
-                            + "<br> Teacher Name: " + teacher_name
-                            + "<br> Course Enrolled: " + cc
-                            + "<br><h2> Prelims Grade: " + prelim   
-                            + "</h2><br>"
-                            + "<p style='text-align: center;'><i><b>You can also view your grades in eGCS student page by clicking this button</b></i></p>"
-                            + "<h2><p style='text-align: center;'><a href='http://e-class-record-cloud-sync-student.fast-page.org/student_ui.html' style='background-color: #002060; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 10px;'>Go to eCR-GradeCSync</a></p></h2>"
-                            + "<br> Your journey with eCR-GradeCSync promises seamless grading, real-time updates, and enhanced transparency in your academic assessments. With our user-friendly platform, "
-                            + "<br>you'll have quick access to your grades and valuable insights into your academic progress. "
-                            + "<br> Best regards,"
-                            + "<br>"
-                            + "<br> eCR-GradeCSync (eGCS) Team "
-                           
-                    })
-                    .then(()=>{
-                        if(count == i){
-                            document.getElementById('pop-up-message').innerHTML="Success! PRELIM grades have been uploaded, and notifications have been sent to your students via email.";
-                            document.getElementById('pop-up-message').style.textAlign = "center";
-                            myPopup.classList.add("show");
-                            cleanUp();
-                        }
-                        else{
-                            count + 1;
-                        }
-                    })
-                    .catch((error)=>{
+                    try {
+                        Email.send({
+                            Host : "smtp.elasticemail.com",
+                            Username : "guzmancarlo.123@gmail.com",
+                            Password : "7B3C28305E4F62DE97199FC2B2EE724F27AC",
+                            To : email,
+                            From : "ecr.gradecloudsync@gmail.com",
+                            Subject : "Prelims Grade in " + cc + " Now Available for Viewing" ,
+                            Body : "<b><h1>Dear, " + stdname
+                                    + "</h1><h4> Welcome to eCR-GradeCSync (eGCS) – Your Academic Hub for streamlined grading and transparent student evaluation at ICCT COLLEGE!" 
+                                    + "<br> Thank you for choosing eCR-GradeCSync (eGCS) to enhance your academic experience. We are thrilled to have you on board."
+                                    + "</h4></b><br>"
+                                    + "<br> Registration Details: " 
+                                    + "<br>"
+                                    + "<br> Student ID: " + stdnum
+                                    + "<br> Teacher Name: " + teacher_name
+                                    + "<br> Course Enrolled: " + cc
+                                    + "<br><h2> Verfication Code: " + verificationCode   
+                                    + "<br><h2> Prelims Grade: " + prelim 
+                                    + "</h2><br>"
+                                    + "<br> <h4><i>Just copy and paste your subject verification code<i></h4>"
+                                    + "<p style='text-align: center;'><i><b>Note: Make sure you have received all your Subjects' verification code for this trimester before you register</b></i></p>"
+                                    + "<h2><p style='text-align: center;'><a href='xxxxxx' style='background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 10px;'>Click to Register Now</a></p></h2>"
+                                    + "<br> Your journey with eCR-GradeCSync promises seamless grading, real-time updates, and enhanced transparency in your academic assessments. With our user-friendly platform, "
+                                    + "<br>you'll have quick access to your grades and valuable insights into your academic progress. "
+                                    + "<br> Best regards,"
+                                    + "<br>"
+                                    + "<br> eCR-GradeCSync (eGCS) Team "
+                               
+                        })
+                        .then(()=>{
+                            if(count == i){
+                                document.getElementById('pop-up-message').innerHTML="Success! Verification Codes and PRELIM grades have been uploaded, and notifications have been sent to your students via email.";
+                                document.getElementById('pop-up-message').style.textAlign = "center";
+                                myPopup.classList.add("show");
+                                cleanUp();
+                            }
+                            else{
+                                count + 1;
+                            }
+                        })
+                        .catch((error)=>{
+                            alert("Added failed:"+error);
+                        });
+                    } catch (error) {
                         alert("Added failed:"+error);
-                    });
+                    }
     
                 }else if(finals==""){
                     var ref = doc(db, stdnum,cc+trimester+trimester);
