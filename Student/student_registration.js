@@ -21,14 +21,11 @@ const firebaseConfig = {
   const client = firebase.firestore();
   const db = getFirestore();
 
-  var checksub,fn,fnid,studentemail,tri;
-  let cc1="";
-  let cc2="";
-  let cc3="";
-  let cc4="";
-  let cc5="";
-  let cc6="";
-  let checkID =false;
+  var fn,fnid,studentemail,tri, Course_Code;
+  let codecontainer = [];
+  let dataID = [];
+  let newdataID = [];
+  let checksub = 0;
   const AllSubsData = [];
 
     const sub1_btn = document.getElementById('verify-button');
@@ -50,422 +47,188 @@ const firebaseConfig = {
     let sub4 = document.getElementById('sub4_verification');
     let sub5 = document.getElementById('sub5_verification');
     let sub6 = document.getElementById('sub6_verification');
-
-    let verif1 = document.getElementById('verified1');
-    let verif2 = document.getElementById('verified2');
-    let verif3 = document.getElementById('verified3');
-    let verif4 = document.getElementById('verified4');
-    let verif5 = document.getElementById('verified5');
-    let verif6 = document.getElementById('verified6');
+    let sub7 = document.getElementById('sub7_verification');
+    let sub8 = document.getElementById('sub8_verification');
+    let sub9 = document.getElementById('sub9_verification');
+    let sub10 = document.getElementById('sub10_verification');
+    let sub11 = document.getElementById('sub11_verification');
+    let sub12 = document.getElementById('sub12_verification');
 
 try{
 function conditionStatement(){
+    const GenerateContainer = [];
+    client.collection("GENERATE_CODE").get().then((querySnapshot) => {
+        querySnapshot.forEach((GenerateData) => {
+            const data = GenerateData.data();
+            dataID = GenerateData.id;
+            newdataID.push(GenerateData.id);
+            const studentID = GenerateData.data().StudentID;
+            const teacherName = GenerateData.data().TeacherName;
+            Course_Code = GenerateData.data().CourseCode;
+            GenerateContainer.push({ ...data, dataID});
 
-if (sub1.value == ""){
-    document.getElementById('pop-up-message').innerHTML="Please Enter Verification First!";
-    document.getElementById('pop-up-message').style.textAlign = "center";
-    myPopup.classList.add("show");
-    HidePersonalData();
-    ShowSubjects(); 
-    //make label blank just in case when verif code is cleared 
-    verif1.value = ' --';
-    verif2.value = ' --';
-    verif3.value = ' --';
-    verif4.value = ' --';
-    verif5.value = ' --';
-    verif6.value = ' --';
-}else if(sub2.value=="" && sub3.value=="" && sub4.value=="" && sub5.value=="" && sub6.value==""){
-    sub1_verified();
-    HidePersonalData();
-    ShowSubjects();
-    checksub=1;
-    //make label blank just in case when verif code is cleared 
-    verif2.value = ' --';
-    verif3.value = ' --';
-    verif4.value = ' --';
-    verif5.value = ' --';
-    verif6.value = ' --';
-}else if(sub3.value=="" && sub4.value=="" && sub5.value=="" && sub6.value==""){
-    sub1_verified();
-    sub2_verified();
-    checksub=2;
-    //make label blank just in case when verif code is cleared 
-    verif3.value = ' --';
-    verif4.value = ' --';
-    verif5.value = ' --';
-    verif6.value = ' --';
-}else if(sub4.value=="" && sub5.value=="" && sub6.value==""){
-    sub1_verified();
-    sub2_verified();
-    sub3_verified();
-    checksub=3;
-    //make label blank just in case when verif code is cleared 
-    verif4.value = ' --';
-    verif5.value = ' --';
-    verif6.value = ' --';
-}else if(sub5.value=="" && sub6.value==""){
-    sub1_verified();
-    sub2_verified();
-    sub3_verified();
-    sub4_verified();
-    checksub=4;
-    //make label blank just in case when verif code is cleared 
-    verif5.value = ' --';
-    verif6.value = ' --';
-}else if(sub6.value==""){
-    sub1_verified();
-    sub2_verified();
-    sub3_verified();
-    sub4_verified();
-    sub5_verified();
-    checksub=5;
-    //make label blank just in case when verif code is cleared 
-    verif6.value = ' --';
-}
-else if(!sub6.value==""){
-    sub1_verified();
-    sub2_verified();
-    sub3_verified();
-    sub4_verified();
-    sub5_verified();
-    sub6_verified();
-    checksub=6;
-}
-else{
-    
-}
-
-}
- 
-async function sub1_verified(){
-    var ref = doc(db, "GENERATE_CODE", sub1.value);
-    const docsnap = await getDoc(ref);
-    if(docsnap.exists()){
-        var student_id = docsnap.data().StudentID;
-        if(student_id == studID.value){
-        cc1 = docsnap.data().CourseCode;
-        studentemail = docsnap.data().StudentEmail;
-        tri = docsnap.data().sem;    
-        fn = docsnap.data().TeacherName;
-        fnid = docsnap.data().TeacherID;
-        verif1.value = cc1 + " - " + fn;
-        document.getElementById("next_button").style="display: block;";
-        document.getElementById("sub2_verification").style="display: inline-flex;";
-        document.getElementById("verified2").style="display:inline-flex;";
-    }
-        
-    else{
-        verif1.value = "Please check your verfication on email!"
-        document.getElementById("next_button").style="display: none;";
-        ShowSubjects();
-      }
-          
-}
-else{
-    verif1.value = "Verification does not exist";
-    document.getElementById("next_button").style="display: none;";
-    ShowSubjects();
-    }
-}
-async function sub2_verified(){
-    var ref = doc(db, "GENERATE_CODE", sub2.value);
-    const docsnap = await getDoc(ref);
-    if(docsnap.exists()){
-        var student_id = docsnap.data().StudentID;
-        if(student_id == studID.value){
-        cc2 = docsnap.data().CourseCode;
-        fn = docsnap.data().TeacherName;
-        fnid = docsnap.data().TeacherID;
-        verif2.value = cc2 + " - " + fn;
-        console.log(AllSubsData);
-        document.getElementById("next_button").style="display: block;";
-        document.getElementById("sub3_verification").style="display: inline-flex;";
-        document.getElementById("verified3").style="display:inline-flex;";
-        
-    }
-        
-    else{
-        verif2.value = "Please check your verfication on email!"
-        document.getElementById("next_button").style="display: none;";
-        ShowSubjects();
-      }
-          
-}
-else{
-    verif2.value = "Verification does not exist";
-    document.getElementById("next_button").style="display: none;";
-    ShowSubjects();
-    }
-}
-async function sub3_verified(){
-    var ref = doc(db, "GENERATE_CODE", sub3.value);
-    const docsnap = await getDoc(ref);
-    if(docsnap.exists()){
-        var student_id = docsnap.data().StudentID;
-        if(student_id == studID.value){
-        cc3 = docsnap.data().CourseCode;
-        fn = docsnap.data().TeacherName;
-        fnid = docsnap.data().TeacherID;
-        verif3.value = cc3 + " - " + fn;
-        document.getElementById("next_button").style="display: block;";
-        document.getElementById("sub4_verification").style="display: inline-flex;";
-        document.getElementById("verified4").style="display:inline-flex;";
-    }
-        
-    else{
-        verif3.value = "Please check your verfication on email!"
-        document.getElementById("next_button").style="display: none;";
-        ShowSubjects();
-      }
-          
-}
-else{
-    verif3.value = "Verification does not exist";
-    document.getElementById("next_button").style="display: none;";
-    ShowSubjects();
-    }
-}
-async function sub4_verified(){
-    var ref = doc(db, "GENERATE_CODE", sub4.value);
-    const docsnap = await getDoc(ref);
-    if(docsnap.exists()){
-        var student_id = docsnap.data().StudentID;
-        if(student_id == studID.value){
-        cc4 = docsnap.data().CourseCode;
-        tri = docsnap.data().sem;
-        fn = docsnap.data().TeacherName;
-        fnid = docsnap.data().TeacherID;
-        verif4.value = cc4 + " - " + fn;
-        document.getElementById("next_button").style="display: block;";
-        document.getElementById("sub5_verification").style="display: inline-flex;";
-        document.getElementById("verified5").style="display:inline-flex;";
-    }
-        
-    else{
-        verif4.value = "Please check your verfication on email!"
-        document.getElementById("next_button").style="display: none;";
-        ShowSubjects();
-      }
-          
-}
-else{
-    verif4.value = "Verification does not exist";
-    document.getElementById("next_button").style="display: none;";
-    ShowSubjects();
-    }
-}
-async function sub5_verified(){
-    var ref = doc(db, "GENERATE_CODE", sub5.value);
-    const docsnap = await getDoc(ref);
-    if(docsnap.exists()){
-        var student_id = docsnap.data().StudentID;
-        if(student_id == studID.value){
-        cc5 = docsnap.data().CourseCode;
-        fn = docsnap.data().TeacherName;
-        fnid = docsnap.data().TeacherID;
-        verif5.value = cc5 + " - " + fn;
-        document.getElementById("next_button").style="display: block;";
-        document.getElementById("sub6_verification").style="display: inline-flex;";
-        document.getElementById("verified6").style="display:inline-flex;";
-    }
-        
-    else{
-        verif5.value = "Please check your verfication on email!"
-        document.getElementById("next_button").style="display: none;";
-        ShowSubjects();
-      }
-          
-}
-else{
-    verif5.value = "Verification does not exist";
-    document.getElementById("next_button").style="display: none;";
-    ShowSubjects();
-    }
-}
-
-async function sub6_verified(){
-    var ref = doc(db, "GENERATE_CODE", sub6.value);
-    const docsnap = await getDoc(ref);
-    if(docsnap.exists()){
-        var student_id = docsnap.data().StudentID;
-        if(student_id == studID.value){
-        cc6 = docsnap.data().CourseCode;
-        fn = docsnap.data().TeacherName;
-        fnid = docsnap.data().TeacherID;
-        verif6.value = cc6 + " - " + fn;
-        document.getElementById("next_button").style="display: block;";
-        document.getElementById("sub7_verification").style="display: inline-flex;";
-        document.getElementById("verified7").style="display:inline-flex;";
-        document.getElementById("subjects-image").style="display:none";
-        document.getElementById("verif-form-row2").style="display:inline-flex;";
-        document.getElementById("verif-form-row1").style="width: 300px;";
-
-    }
-        
-    else{
-        verif6.value = "Please check your verfication on email!"
-        HidePersonalData();
-        ShowSubjects();
-      }
-          
-}
-else{
-    verif6.value = "Verification does not exist";
-    HidePersonalData();
-    ShowSubjects();
-    }
+            // Check if studentID is equal to inputValue
+            if(dataID === sub1.value && studentID === studID.value ) {
+                codecontainer.push(Course_Code);
+                checksub=1;
+                document.getElementById('verified1').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub2_verification").style="display: inline-flex;";
+                document.getElementById("verified2").style="display:inline-flex;";
+            } else if(dataID === sub2.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=2;
+                document.getElementById('verified2').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub3_verification").style="display: inline-flex;";
+                document.getElementById("verified3").style="display:inline-flex;";
+            } else if(dataID === sub3.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=3;
+                document.getElementById('verified3').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub4_verification").style="display: inline-flex;";
+                document.getElementById("verified4").style="display:inline-flex;";
+            }else if(dataID === sub4.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=4;
+                document.getElementById('verified4').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub5_verification").style="display: inline-flex;";
+                document.getElementById("verified5").style="display:inline-flex;";
+            }else if(dataID === sub5.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=5;
+                document.getElementById('verified5').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub6_verification").style="display: inline-flex;";
+                document.getElementById("verified6").style="display:inline-flex;";
+            }else if(dataID === sub6.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=6;
+                document.getElementById('verified6').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("subjects-image").style="display:none";
+                document.getElementById("verif-form-row2").style="display:block;";
+                document.getElementById("sub7_verification").style="display: inline-flex;";
+                document.getElementById("verified7").style="display:inline-flex;";
+            }else if(dataID === sub7.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=7;
+                document.getElementById('verified7').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub8_verification").style="display: inline-flex;";
+                document.getElementById("verified8").style="display:inline-flex;";
+            }else if(dataID === sub8.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=8;
+                document.getElementById('verified8').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub9_verification").style="display: inline-flex;";
+                document.getElementById("verified9").style="display:inline-flex;";
+            }else if(dataID === sub9.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=9;
+                document.getElementById('verified9').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub10_verification").style="display: inline-flex;";
+                document.getElementById("verified10").style="display:inline-flex;";
+            }else if(dataID === sub10.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=10;
+                document.getElementById('verified10').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub11_verification").style="display: inline-flex;";
+                document.getElementById("verified11").style="display:inline-flex;";
+            }
+            else if(dataID === sub11.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=11;
+                document.getElementById('verified11').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+                document.getElementById("sub12_verification").style="display: inline-flex;";
+                document.getElementById("verified12").style="display:inline-flex;";
+            }
+            else if(dataID === sub12.value && studentID === studID.value ){
+                codecontainer.push(Course_Code);
+                codecontainer = [...new Set(codecontainer)];
+                checksub=12;
+                document.getElementById('verified12').value = Course_Code + " " + teacherName;
+                document.getElementById("next_button").style="display: block;";
+            }
+        })
+    })
 }
 
 
 async function SaveRegistrationFrom(){
     const currentData =[];
     let subjectsData =[];
-    AllSubsData.push(cc1,cc2,cc3,cc4,cc5,cc6);
     var ref = doc(db, "STUDENT_LIST","STUDENT_DATA", studID.value, password.value);
     const docsnap = await getDoc(ref);
     if(docsnap.exists()){
         currentData.push(docsnap.data().subjects);
         currentData.forEach((subject) => {
-            subjectsData = [...subject, ...AllSubsData];
+            subjectsData = [...subject, ...codecontainer];
             console.log(subjectsData);
         });
         
     }else{
-        subjectsData = [...AllSubsData];
+        subjectsData = [...codecontainer];
         console.log(subjectsData);
     }
     try {
         if(studID.value =="" && fName.value =="" && lName.valuev =="" && password.value ==""){
         alert("Please Finish the fill up first");
         ShowPersonalData();
-        }else if(checksub==1){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
+        }else{
+            for (let i=0;i<checksub;i++){
+                var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
                 setDoc( 
                 ref, {
                     studentID : studID.value,
                     name : fName.value + " " + mI.value +" "+ lName.value,
                     password : password.value,
-                    trimester : tri,
                     subjects : subjectsData.flat().filter((subject) => subject),
             })
             const collectionRef = client.collection("GENERATE_CODE");
-            const docRef = collectionRef.doc(sub1.value);
+            const docRef = collectionRef.doc(newdataID[i]);
             docRef.delete()
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show");
             document.getElementById("student-id").style="display: block;";
+            document.getElementById("password").style="display: none;";
+            document.getElementById("addsub_button").style="display: none;";
             HidePersonalData(); 
             ShowSubjects();
-            cleanUp();
-            
-        }else if(checksub==2){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
-                setDoc( 
-                ref, {
-                studentID : studID.value,
-                name : fName.value + " " + mI.value +" "+ lName.value,
-                password : password.value,
-                trimester : tri,
-                subjects : subjectsData.flat().filter((subject) => subject),
-            })
-            document.getElementById('pop-up-message').innerHTML="Registered Successful!";
-            document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show");
-            document.getElementById("student-id").style="display: block;";
-            document.getElementById("addsub_button").style="display: none;";
-            HidePersonalData();
-            ShowSubjects(); 
-            cleanUp();
-        }else if(checksub==3){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
-                setDoc( 
-                ref, {
-                studentID : studID.value,
-                name : fName.value + " " + mI.value +" "+ lName.value,
-                password : password.value,
-                trimester : tri,
-                subjects : subjectsData.flat().filter((subject) => subject),
-            })
-            document.getElementById('pop-up-message').innerHTML="Registered Successful!";
-            document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show");
-            document.getElementById("student-id").style="display: block;"; 
-            document.getElementById("addsub_button").style="display: none;";
-            HidePersonalData();
-            ShowSubjects();
-            cleanUp();
-        }else if(checksub==4){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
-                setDoc( 
-                ref, {
-                studentID : studID.value,
-                name : fName.value + " " + mI.value +" "+ lName.value,
-                password : password.value,
-                trimester : tri,
-                subjects : subjectsData.flat().filter((subject) => subject),
-            })
-            document.getElementById('pop-up-message').innerHTML="Registered Successful!";
-            document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show");
-            document.getElementById("student-id").style="display: block;";
-            document.getElementById("addsub_button").style="display: none;";
-            HidePersonalData();
-            ShowSubjects(); 
-            cleanUp();
-        }else if(checksub==5){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
-                setDoc( 
-                ref, {
-                studentID : studID.value,
-                name : fName.value + " " + mI.value +" "+ lName.value,
-                password : password.value,
-                trimester : tri,
-                subjects : subjectsData.flat().filter((subject) => subject),
-            })
-            document.getElementById('pop-up-message').innerHTML="Registered Successful!";
-            document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show");
-            document.getElementById("student-id").style="display: block;";
-            document.getElementById("addsub_button").style="display: none;";
-            HidePersonalData();
-            ShowSubjects();
-            cleanUp();
-            
-        }else if(checksub==6){
-            var ref = doc(db, "STUDENT_LIST","STUDENT_DATA",studID.value,password.value);
-                setDoc( 
-                ref, {
-                studentID : studID.value,
-                name : fName.value + " " + mI.value +" "+ lName.value,
-                password : password.value,
-                trimester : tri,
-                subjects : subjectsData.flat().filter((subject) => subject),
-            })
-            document.getElementById('pop-up-message').innerHTML="Registered Successful!";
-            document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show");
-            document.getElementById("student-id").style="display: block;";
-            document.getElementById("addsub_button").style="display: none;";
-            HidePersonalData();
-            ShowSubjects(); 
-            cleanUp();
-            
+            cleanUp(); 
+            }
         }
-
         
     } catch (error) {
         console.log(error);
         document.getElementById('pop-up-message').innerHTML="Please Check the data you input before proceeding";
         document.getElementById('pop-up-message').style.textAlign = "center";
         myPopup.classList.add("show");
+        document.getElementById("password").style="display: none;";
         HidePersonalData();
         ShowSubjects();
+        cleanUp();
     }
     
 }
 async function checkingaccount(){
-    let checkingData =false;
     if(password.value ==""){
         document.getElementById('pop-up-message').innerHTML="Please enter password first!";
         document.getElementById('pop-up-message').style.textAlign = "center";
@@ -559,12 +322,6 @@ async function checkingaccount(){
         sub4.value=""
         sub5.value=""
         sub6.value=""
-        verif1.value = ' --';
-        verif2.value = ' --';
-        verif3.value = ' --';
-        verif4.value = ' --';
-        verif5.value = ' --';
-        verif6.value = ' --';
         document.getElementById("sub2_verification").style="display: none;";
         document.getElementById("verified2").style="display: none;";
         document.getElementById("sub3_verification").style="display: none;";

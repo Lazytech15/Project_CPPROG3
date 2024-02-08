@@ -66,7 +66,7 @@ const firebaseConfig = {
     unknowndata.push({ ...data});
     unknowndata.forEach((studentdata) => {
         // Organize data by trimester
-        if (studentdata.TRIMESTER === "1st" /*&& subject !== firstuniqueStudentData.COURSE_CODE*/) {
+        if (studentdata.TRIMESTER === "1st") {
             firsttrimester.push({ ...data });
             document.getElementById('table').style="display: block";
         } else if (studentdata.TRIMESTER === "2nd") {
