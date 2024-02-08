@@ -12,12 +12,13 @@ const firebaseConfig = {
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
 
   import {
     getFirestore, doc, getDoc, collection, addDoc, setDoc, updateDoc, deleteDoc, deleteField
   }
   from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
-
+  const client = firebase.firestore();
   const db = getFirestore();
 
   var checksub,fn,fnid,studentemail,tri;
@@ -27,11 +28,13 @@ const firebaseConfig = {
   let cc4="";
   let cc5="";
   let cc6="";
+  let checkID =false;
   const AllSubsData = [];
 
     const sub1_btn = document.getElementById('verify-button');
     const nextbutton = document.getElementById('next_button');
     const backbutton = document.getElementById('back_button');
+    const addsub = document.getElementById("addsub_button");
 
     let studID = document.getElementById('student-id');
     let fName = document.getElementById('first-name');
@@ -57,6 +60,7 @@ const firebaseConfig = {
 
 try{
 function conditionStatement(){
+
 if (sub1.value == ""){
     document.getElementById('pop-up-message').innerHTML="Please Enter Verification First!";
     document.getElementById('pop-up-message').style.textAlign = "center";
@@ -331,7 +335,7 @@ async function SaveRegistrationFrom(){
         console.log(subjectsData);
     }
     try {
-        if(studID.value=="" || fName.value=="" || lName.value=="" || password.value==""){
+        if(studID.value =="" && fName.value =="" && lName.valuev =="" && password.value ==""){
         alert("Please Finish the fill up first");
         ShowPersonalData();
         }else if(checksub==1){
@@ -344,9 +348,13 @@ async function SaveRegistrationFrom(){
                     trimester : tri,
                     subjects : subjectsData.flat().filter((subject) => subject),
             })
+            const collectionRef = client.collection("GENERATE_CODE");
+            const docRef = collectionRef.doc(sub1.value);
+            docRef.delete()
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show");
+            document.getElementById("student-id").style="display: block;";
             HidePersonalData(); 
             ShowSubjects();
             cleanUp();
@@ -364,6 +372,8 @@ async function SaveRegistrationFrom(){
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show");
+            document.getElementById("student-id").style="display: block;";
+            document.getElementById("addsub_button").style="display: none;";
             HidePersonalData();
             ShowSubjects(); 
             cleanUp();
@@ -379,7 +389,9 @@ async function SaveRegistrationFrom(){
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show"); 
+            myPopup.classList.add("show");
+            document.getElementById("student-id").style="display: block;"; 
+            document.getElementById("addsub_button").style="display: none;";
             HidePersonalData();
             ShowSubjects();
             cleanUp();
@@ -396,6 +408,8 @@ async function SaveRegistrationFrom(){
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show");
+            document.getElementById("student-id").style="display: block;";
+            document.getElementById("addsub_button").style="display: none;";
             HidePersonalData();
             ShowSubjects(); 
             cleanUp();
@@ -411,7 +425,9 @@ async function SaveRegistrationFrom(){
             })
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
-            myPopup.classList.add("show"); 
+            myPopup.classList.add("show");
+            document.getElementById("student-id").style="display: block;";
+            document.getElementById("addsub_button").style="display: none;";
             HidePersonalData();
             ShowSubjects();
             cleanUp();
@@ -429,6 +445,8 @@ async function SaveRegistrationFrom(){
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show");
+            document.getElementById("student-id").style="display: block;";
+            document.getElementById("addsub_button").style="display: none;";
             HidePersonalData();
             ShowSubjects(); 
             cleanUp();
@@ -446,21 +464,79 @@ async function SaveRegistrationFrom(){
     }
     
 }
+async function checkingaccount(){
+    let checkingData =false;
+    if(password.value ==""){
+        document.getElementById('pop-up-message').innerHTML="Please enter password first!";
+        document.getElementById('pop-up-message').style.textAlign = "center";
+        myPopup.classList.add("show");
+    }else if(lName.value==""){
+        //do nothing
+    }else{
+    var ref = doc(db, "STUDENT_LIST","STUDENT_DATA", studID.value, password.value);
+    const docsnap = await getDoc(ref);
+    if(docsnap.exists()){
+        var pass = docsnap.data().password;
+        if (pass === password.value){
+            document.getElementById('pop-up-message').innerHTML="It's look like you already registered, it will save to add subjects";
+            document.getElementById('pop-up-message').style.textAlign = "center";
+            myPopup.classList.add("show");
+            document.getElementById("register_button").style="display: none;";
+            document.getElementById("subjects-warning").style="display: none;";
+            document.getElementById("addsubject-warning").style="display: block;";
+            document.getElementById("addsub_button").style="display: block;";
+            const addname  = docsnap.data().name;
+            const Toseperate = addname.split(" ");
+            fName.value = Toseperate[0];
+            mI.value = Toseperate[1];
+            lName.value = Toseperate[2];
+            fName.readOnly=true;
+            mI.readOnly=true;
+            lName.readOnly=true;
+        }
+    }else{
+        const collectionRef = client.collection("STUDENT_LIST");
+        const docRef = collectionRef.doc("STUDENT_DATA");
+        const inputSubcollectionName = studID.value;
+        // Fetch the subcollection and check its size
+        docRef.collection(inputSubcollectionName).get().then((querySnapshot) => {
+            if (querySnapshot.size > 0) {
+                document.getElementById('pop-up-message').innerHTML="Its seems that you already have an account, please check your password";
+                document.getElementById('pop-up-message').style.textAlign = "center";
+                myPopup.classList.add("show");
+                password.value="";
+                fName.value="";
+                lName.value="";
+                mI.value="";
+            } else {
+                SaveRegistrationFrom();
+            }
+        });
+        }
+    }
+}
+        addsub.addEventListener('click', SaveRegistrationFrom);
+        password.addEventListener('change',checkingaccount);
         sub1_btn.addEventListener('click',conditionStatement);
-        nextbutton.addEventListener('click',ShowPersonalData);
+        nextbutton.addEventListener('click', function() {
+            ShowPersonalData();
+            document.getElementById("password").style="display: block;";
+            document.getElementById("student-id").style="display: none;";
+        });
         backbutton.addEventListener('click', function() {
             HidePersonalData();
             ShowSubjects();
             document.getElementById("next_button").style="display: block;";
+            document.getElementById("password").style="display: none;";
+            document.getElementById("student-id").style="display: block;";
         });
             //confirmation for register
         document.getElementById("register_button").addEventListener("click", function() {
             // Ask for confirmation
             var userConfirmation = confirm("Are you sure you want to finish registration? Take note you cannot change your password after registration");
-
             // Check the user's response
             if (userConfirmation) {
-                SaveRegistrationFrom()
+                checkingaccount();
                 
 
             } else {
@@ -508,6 +584,7 @@ async function SaveRegistrationFrom(){
         myPopup.classList.remove("show");
       }
       });
+      
       function HidePersonalData(){
         document.getElementById("personal-data-container").style="display: none;";
         document.getElementById("register_button").style="display: none;";
@@ -522,10 +599,12 @@ async function SaveRegistrationFrom(){
         document.getElementById("register_button").style="display: block;";
         document.getElementById("personal-datawarning").style="display: block;";
         document.getElementById("back_button").style="display: block;";
+        document.getElementById("password").style="display: block;"
         }
       function ShowSubjects(){
         document.getElementById("subjects-container").style="display: block;";
         document.getElementById("verify-button").style="display: block;";
         document.getElementById("subjects-warning").style="display: block;";
         document.getElementById("back_button").style="display: none;";
+        document.getElementById("password").style="display: none;"
         }

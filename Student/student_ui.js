@@ -18,7 +18,6 @@ const firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-  let firstuniqueStudentData;
   let student_id,tri;
   let subs = [];
 
@@ -69,10 +68,13 @@ const firebaseConfig = {
         // Organize data by trimester
         if (studentdata.TRIMESTER === "1st" /*&& subject !== firstuniqueStudentData.COURSE_CODE*/) {
             firsttrimester.push({ ...data });
+            document.getElementById('table').style="display: block";
         } else if (studentdata.TRIMESTER === "2nd") {
             secondtrimester.push({ ...data });
+            document.getElementById('table2').style="display: block";
         } else {
             thirdtrimester.push({ ...data });
+            document.getElementById('table3').style="display: block";
         }
         
     });

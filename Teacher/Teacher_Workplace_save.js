@@ -151,7 +151,7 @@ const submitBtn = document.getElementById('submit-button');
 
                         //For Prelim Grades Only
                 if(midterm=="" && finals==""){
-                    var ref = doc(db, stdnum,cc+trimester+trimester);
+                    var ref = doc(db, stdnum,cc);
                     setDoc(
                     ref, {
                         STUDENT_NUM : stdnum,
@@ -221,7 +221,7 @@ const submitBtn = document.getElementById('submit-button');
                         })
                         .then(()=>{
                             if(count == i){
-                                document.getElementById('pop-up-message').innerHTML="Success! Verification Codes and PRELIM grades have been uploaded, and notifications have been sent to your students via email.";
+                                document.getElementById('pop-up-message').innerHTML="Success! Verification Codes have been uploaded, and notifications have been sent to your students via email.";
                                 document.getElementById('pop-up-message').style.textAlign = "center";
                                 myPopup.classList.add("show");
                                 cleanUp();
@@ -238,7 +238,7 @@ const submitBtn = document.getElementById('submit-button');
                     }
     
                 }else if(finals==""){
-                    var ref = doc(db, stdnum,cc+trimester+trimester);
+                    var ref = doc(db, stdnum,cc);
                     setDoc(
                     ref, {
                         STUDENT_NUM : stdnum,
@@ -308,7 +308,7 @@ const submitBtn = document.getElementById('submit-button');
                     });
                 }else if(!finals==""){
                     
-                    var ref = doc(db, stdnum,cc+trimester+trimester);
+                    var ref = doc(db, stdnum,cc);
                     setDoc(
                     ref, {
                         STUDENT_NUM : stdnum,

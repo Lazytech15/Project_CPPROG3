@@ -30,7 +30,7 @@ const firebaseConfig = {
   {
 
   //checking the the data from firestore
-  async function GetaDocument(stdname,student_id){
+  async function GetaDocument(){
   if(uname.value=="" || upass.value==""){
         document.getElementById('pop-up-message').innerHTML="Please input username & password first!";
         document.getElementById('pop-up-message').style.textAlign = "center";
