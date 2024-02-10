@@ -170,7 +170,7 @@ span{
 
 #table-design{
     margin-top: 5px;
-    max-height: 80vh;
+    height: 80vh;
     overflow-y: auto;
     border: 2px solid white;
     border-radius: 10px;
@@ -252,14 +252,12 @@ footer p{
 }
 @media (max-width: 700px) {
    .captionbutton-container{
-     display: block;
+     display: flex;
      width:auto;
+     justify-content: space-between;
     }
     .container{
       height: 100vh;
-    }
-    .user-info{
-        display: block;
     }
     #st-name, span{
         margin: 0px;
@@ -270,7 +268,7 @@ footer p{
         position: relative;
         margin: 0px;
     }
-    .table-design{
+    #table-design{
         margin-top:10px;
         overflow-x: auto;
     }
@@ -284,7 +282,7 @@ footer p{
       margin-top:110px;
     }
     .mt-md {
-        margin-top: 120px;
+        margin-top: 50px;
     }
     footer{
        bottom: 20px;
@@ -292,15 +290,16 @@ footer p{
 }
 @media (max-width: 480px){
     .container{
-        height: 100%;
+        height: 100vh;
+        margin-bottom: 20px;
     }
     .mt-md {
         margin-top: 20px;
     }
-    .table-design{
-        margin: 0;
+    #table-design{
+        margin-top: 10px;
+        height: 75vh;
         overflow-x: auto;
-        height: 200px;
         padding: 10px;
     }
     .table{
@@ -309,6 +308,6 @@ footer p{
         white-space: nowrap;
     }
     footer{
-        bottom: 5px;
+        bottom: 0px;
     }
 }
