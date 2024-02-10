@@ -53,7 +53,7 @@ const firebaseConfig = {
           const UserDataTransfer = JSON.stringify(UserData);
           //make it global to be able to access in different js file.
           localStorage.setItem('UserData', UserDataTransfer);
-          window.open("student_ui.html")
+          window.open("student_ui.html","_blank");
           window.close();
           
         }
