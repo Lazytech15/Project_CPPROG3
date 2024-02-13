@@ -26,7 +26,9 @@ const firebaseConfig = {
   var last_name = document.getElementById('last_name');
   var pass = document.getElementById('password');
   var register_button = document.getElementById('register_button');
+  var test_button = document.getElementById('test_button');
 
+ 
 async function SaveRegistrationFrom(){
     
         
@@ -51,14 +53,14 @@ async function SaveRegistrationFrom(){
                     }
             
                 else{
-                var ref = doc(db, "TEACHER_LIST",teacher_id.value);
+                var ref = doc(db, "PENDING_ACCOUNTS",teacher_id.value);
                     setDoc( 
                     ref, {
                     TeacherID : teacher_id.value,
                     TeacherName : first_name.value + " " + middle_initial.value +" "+ last_name.value,
                     password : pass.value
                     })
-                    document.getElementById('pop-up-message').innerHTML="Congrats!, Registration Succesfully!";
+                    document.getElementById('pop-up-message').innerHTML="Congrats!, Registration Succesfull!";
                     document.getElementById('pop-up-message').style.textAlign = "center";
                     myPopup.classList.add("show"); 
                     teacher_id.value="";
@@ -71,6 +73,7 @@ async function SaveRegistrationFrom(){
         }
     }
     register_button.addEventListener('click', SaveRegistrationFrom);
+    test_button.addEventListener('click', TestForm);
     closePopup.addEventListener("click", function () {
         myPopup.classList.remove("show");
     });

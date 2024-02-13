@@ -398,19 +398,24 @@ const submitBtn = document.getElementById('submit-button');
         randomVerifCode += lowercaseLetters[Math.floor(Math.random() * lowercaseLetters.length)];
     
         // Complete the rest of the password with random characters
-        for (let i = 1; i <= 5; i++) {
-            randomVerifCode += allCharacters[Math.floor(Math.random() * allCharacters.length)];
+            for (let i = 1; i <= 5; i++) {
+                randomVerifCode += allCharacters[Math.floor(Math.random() * allCharacters.length)];
+            }
+            return randomVerifCode;
         }
-        return randomVerifCode;
-        }
+        
+        
         closePopup.addEventListener("click", function () {
             myPopup.classList.remove("show");
         });
+        
         window.addEventListener("click", function (event) {
         if (event.target == myPopup) {
             myPopup.classList.remove("show");
         }
         });
+
+
         function cleanUp(){
             fileInput.value = null;
             fileNameEl.textContent = '';
