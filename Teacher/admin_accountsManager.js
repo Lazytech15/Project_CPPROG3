@@ -79,8 +79,7 @@ async function displayAccounts() {
       alert(error);
   }
 }
-    
-async function approveAccounts() {
+document.getElementById('approve_button').addEventListener('click', async () => {
   try {
     const tableBody = document.querySelector('#pendingAccTable tbody');
     const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]:checked');
@@ -109,9 +108,9 @@ async function approveAccounts() {
   } catch (error) {
       alert(error);
   }
-}
+});
 
-async function rejectAccounts() {
+document.getElementById('reject_button').addEventListener('click', async () => {
   try {
     const tableBody = document.querySelector('#pendingAccTable tbody');
     const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]:checked');
@@ -128,7 +127,7 @@ async function rejectAccounts() {
   } catch (error) {
       alert(error);
   }
-}
+});
 
 async function deleteAccounts() {
   try {
