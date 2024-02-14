@@ -116,8 +116,7 @@ h6 {
     padding: 2rem 2rem 3rem;
     box-shadow: var(--bx-shadow);
     border-radius: var(--brd-radius);
-    margin: 10px;
-    height: 600px;
+    margin: 0 auto;
 }
 
 /* Labels */
@@ -255,12 +254,51 @@ th {
 
 /* Media Query */
 .container {
-    display: inline-block;
-
     max-width: 1536px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem;
     padding-right: 1rem;
-    
+}
+
+/* 2xl */
+@media (max-width: 1536px) {
+    .container {
+        max-width: 1280px;
+    }
+}
+
+/* xl */
+@media (max-width: 1280px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+
+/* lg */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 768px;
+    }
+}
+
+/* md */
+@media (max-width: 768px) {
+    .container {
+        max-width: 640px;
+    }
+}
+
+/* sm */
+@media (max-width: 640px) {
+    .container {
+        max-width: 475px;
+    }
+}
+
+/* xs */
+@media (max-width: 475px) {
+    .container {
+        width: 100%;
+    }
 }

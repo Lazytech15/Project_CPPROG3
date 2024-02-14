@@ -4,6 +4,7 @@ const fileNameEl = document.getElementById('file-name');
 const secondaryNav = document.querySelector('.secondary-nav');
 const dropzone = document.querySelector('.input-file-container');
 const logoutBtn = document.getElementById('btn-logout');
+const teacher_name = localStorage.getItem('teacher_name');
 
 var results;
 
@@ -162,7 +163,8 @@ function clearTable() {
 
 // Handle logout
 logoutBtn.addEventListener('click', () => {
-    window.location.assign("http://e-class-record-cloud-sync.fast-page.org");
+    window.open("index.html");
+    window.close();
 })
 
 // Adjust 'main' padding dynamically
@@ -187,3 +189,17 @@ document.querySelector('.table-sub-container').addEventListener('click', event =
         }
     }
 });
+
+let closeqr = document.getElementById("closeqr");
+let qrcode = document.getElementById("qrcode");
+
+
+qrcode.addEventListener('click', function(){
+    document.getElementById("qrcon").style="display:block";
+    tname.value = teacher_name;
+    tname.readOnly=true;
+});
+closeqr.addEventListener('click',function(){
+    document.getElementById("qrcon").style="display:none";
+})
+

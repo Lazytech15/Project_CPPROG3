@@ -2,13 +2,25 @@
 <html>
 
 <head>
-    <title>LOGIN</title>
+    <title>Student Login Form</title>
+    <link rel="icon" type="image/png"  href="circuit.png">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="general.css" />
     <link rel="stylesheet" href="pop-up.css">
     <link rel="stylesheet" href="adjustcss-for-login.css">
     <meta http-equiv="refresh" content="">
+    <script type="text/javascript">
+        var slowLoad = window.setTimeout(function () {
+            document.getElementById('pop-up-message').innerHTML="It's seems that the internet become slow, please be patient while getting the good staff";
+            document.getElementById('pop-up-message').style.textAlign = "center";
+            myPopup.classList.add("show");
+        }, 10000); // Set the timeout duration (e.g., 10 seconds)
+    
+        window.addEventListener('load', function () {
+            window.clearTimeout(slowLoad); // Cancel the timeout when the page finishes loading
+        }, false);
+    </script>
 </head>
 
 <body class="place-center">

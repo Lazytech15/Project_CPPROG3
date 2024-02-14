@@ -252,7 +252,7 @@ footer p{
 }
 @media (max-width: 700px) {
    .captionbutton-container{
-     display: flex;
+     display: block;
      width:auto;
      justify-content: space-between;
     }

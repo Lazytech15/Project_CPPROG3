@@ -1,13 +1,13 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDFWV4k9-XmABgNGmleyXLTcuEn41rMHK8",
-    authDomain: "hackathon-26f12.firebaseapp.com",
-    databaseURL: "https://hackathon-26f12-default-rtdb.firebaseio.com",
-    projectId: "hackathon-26f12",
-    storageBucket: "hackathon-26f12.appspot.com",
-    messagingSenderId: "1071789540560",
-    appId: "1:1071789540560:web:6227da20f3a3a3a9ab0ad5"
+    apiKey: "AIzaSyByH0pNuEoNXna4Dj61C2QxIX-AfmFAnq0",
+    authDomain: "antipolo-hackathon-project.firebaseapp.com",
+    projectId: "antipolo-hackathon-project",
+    storageBucket: "antipolo-hackathon-project.appspot.com",
+    messagingSenderId: "88056856756",
+    appId: "1:88056856756:web:9597da80bb7239996bd7e1"
   };
 
   // Initialize Firebase
@@ -26,9 +26,11 @@ const firebaseConfig = {
   let codecontainer = [];
   let dataID = [];
   let newdataID = [];
+  let toDelete =[];
   let IDrecieved = [];
   let checksub = 0;
   let teacherName;
+  let qrResults;
 
     const sub1_btn = document.getElementById('verify-button');
     const nextbutton = document.getElementById('next_button');
@@ -75,7 +77,8 @@ function conditionStatement(){
                 Course_Code = GenerateData.data().CourseCode;
                 GenerateContainer.push({ ...data, dataID});
                 IDrecieved.push(dataID);
-                
+               
+            })  
                 code01verified();
                 code02verified();
                 code03verified();
@@ -87,18 +90,17 @@ function conditionStatement(){
                 code09verified();
                 code010verified();
                 code011verified();
-                code12verified();
-               
-            })   
+                code12verified(); 
         })
     }
 }
 function code01verified(){
     let Gcode01 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub1.value
+        return GenerateCode.dataID === sub1.value && GenerateCode.StudentID === studID.value
     })
     if (Gcode01){
         codecontainer.push(Gcode01.CourseCode);
+        toDelete.push(Gcode01.dataID);
         codecontainer = [...new Set(codecontainer)];
         GenerateContainer = [...new Set(GenerateContainer)];
         checksub=1;
@@ -106,61 +108,70 @@ function code01verified(){
         document.getElementById("next_button").style="display: block;";
         document.getElementById("sub2_verification").style="display: inline-flex;";
         document.getElementById("verified2").style="display:inline-flex;";
+        document.getElementById("qrsub1").style="display: none;";
     }else{
-        document.getElementById('verified1').value = "Please Check your verification";
+        document.getElementById('verified1').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code02verified(){
     let Gcode02 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub2.value
+        return GenerateCode.dataID === sub2.value && GenerateCode.StudentID === studID.value
     })
     if (sub2.value ===""){
         //don nothing
     }else
     if(Gcode02){
         codecontainer.push(Gcode02.CourseCode);
+        toDelete.push(Gcode02.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=2;
         document.getElementById('verified2').value = Gcode02.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
         document.getElementById("sub3_verification").style="display: inline-flex;";
         document.getElementById("verified3").style="display:inline-flex;";
     }else{
-        document.getElementById('verified2').value = "Please Check your verification";
+        document.getElementById('verified2').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
         console.log(Gcode02);
     }
 }
 function code03verified(){
     let Gcode03 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub3.value
+        return GenerateCode.dataID === sub3.value && GenerateCode.StudentID === studID.value
     })
     if (sub3.value ===""){
         //don nothing
     }else
     if(Gcode03){
         codecontainer.push(Gcode03.CourseCode);
+        toDelete.push(Gcode03.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=3;
         document.getElementById('verified3').value = Gcode03.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
         document.getElementById("sub4_verification").style="display: inline-flex;";
         document.getElementById("verified4").style="display:inline-flex;";
     }else{
-        document.getElementById('verified3').value = "Please Check your verification";
+        document.getElementById('verified3').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code04verified(){
     let Gcode04 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub4.value
+        return GenerateCode.dataID === sub4.value && GenerateCode.StudentID === studID.value
     })
     if (sub4.value ===""){
         //don nothing
     }else
     if (Gcode04){
         codecontainer.push(Gcode04.CourseCode);
+        toDelete.push(Gcode04.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
         GenerateContainer = [...new Set(GenerateContainer)];
         checksub=4;
@@ -169,59 +180,71 @@ function code04verified(){
         document.getElementById("sub5_verification").style="display: inline-flex;";
         document.getElementById("verified5").style="display:inline-flex;";
     }else{
-        document.getElementById('verified4').value = "Please Check your verification";
+        document.getElementById('verified4').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code05verified(){
     let Gcode05 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub5.value
+        return GenerateCode.dataID === sub5.value && GenerateCode.StudentID === studID.value
     })
     if (sub5.value ===""){
         //don nothing
     }else
     if(Gcode05){
         codecontainer.push(Gcode05.CourseCode);
+        toDelete.push(Gcode05.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=5;
         document.getElementById('verified5').value = Gcode05.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
         document.getElementById("sub6_verification").style="display: inline-flex;";
         document.getElementById("verified6").style="display:inline-flex;";
     }else{
-        document.getElementById('verified5').value = "Please Check your verification";
+        document.getElementById('verified5').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code06verified(){
     let Gcode06 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub6.value
+        return GenerateCode.dataID === sub6.value && GenerateCode.StudentID === studID.value
     })
     if (sub6.value ===""){
         //don nothing
     }else
     if(Gcode06){
         codecontainer.push(Gcode06.CourseCode);
+        toDelete.push(Gcode06.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=6;
         document.getElementById('verified6').value = Gcode06.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
+        document.getElementById("verif-form-row2").style="display: block";
+        document.getElementById("subjects-image").style="display: none";
         document.getElementById("sub7_verification").style="display: inline-flex;";
         document.getElementById("verified7").style="display:inline-flex;";
+        document.getElementById("verif-form-row1").style="width: 300px;";
+        
     }else{
-        document.getElementById('verified6').value = "Please Check your verification";
+        document.getElementById('verified6').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code07verified(){
     let Gcode07 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub7.value
+        return GenerateCode.dataID === sub7.value && GenerateCode.StudentID === studID.value
     })
     if (sub7.value ===""){
         //don nothing
     }else
     if (Gcode07){
         codecontainer.push(Gcode07.CourseCode);
+        toDelete.push(Gcode07.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
         GenerateContainer = [...new Set(GenerateContainer)];
         checksub=7;
@@ -230,59 +253,67 @@ function code07verified(){
         document.getElementById("sub8_verification").style="display: inline-flex;";
         document.getElementById("verified8").style="display:inline-flex;";
     }else{
-        document.getElementById('verified7').value = "Please Check your verification";
+        document.getElementById('verified7').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code08verified(){
     let Gcode08 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub8.value
+        return GenerateCode.dataID === sub8.value && GenerateCode.StudentID === studID.value
     })
     if (sub8.value ===""){
         //don nothing
     }else
     if(Gcode08){
         codecontainer.push(Gcode08.CourseCode);
+        toDelete.push(Gcode08.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=8;
         document.getElementById('verified8').value = Gcode08.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
         document.getElementById("sub9_verification").style="display: inline-flex;";
         document.getElementById("verified9").style="display:inline-flex;";
     }else{
-        document.getElementById('verified8').value = "Please Check your verification";
+        document.getElementById('verified8').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code09verified(){
     let Gcode09 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub9.value
+        return GenerateCode.dataID === sub9.value && GenerateCode.StudentID === studID.value
     })
     if (sub9.value ===""){
         //don nothing
     }else
     if(Gcode09){
         codecontainer.push(Gcode09.CourseCode);
+        toDelete.push(Gcode09.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=9;
         document.getElementById('verified9').value = Gcode09.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
         document.getElementById("sub10_verification").style="display: inline-flex;";
         document.getElementById("verified10").style="display:inline-flex;";
     }else{
-        document.getElementById('verified9').value = "Please Check your verification";
+        document.getElementById('verified9').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code010verified(){
     let Gcode10 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub10.value
+        return GenerateCode.dataID === sub10.value && GenerateCode.StudentID === studID.value
     })
     if (sub10.value ===""){
         //don nothing
     }else
     if (Gcode10){
         codecontainer.push(Gcode10.CourseCode);
+        toDelete.push(Gcode10.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
         GenerateContainer = [...new Set(GenerateContainer)];
         checksub=10;
@@ -291,45 +322,51 @@ function code010verified(){
         document.getElementById("sub11_verification").style="display: inline-flex;";
         document.getElementById("verified11").style="display:inline-flex;";
     }else{
-        document.getElementById('verified10').value = "Please Check your verification";
+        document.getElementById('verified10').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code011verified(){
     let Gcode11 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub11.value
+        return GenerateCode.dataID === sub11.value && GenerateCode.StudentID === studID.value
     })
-    if (sub5.value ===""){
+    if (sub11.value ===""){
         //don nothing
     }else
     if(Gcode11){
         codecontainer.push(Gcode11.CourseCode);
+        toDelete.push(Gcode11.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=11;
-        document.getElementById('verified5').value = Gcode11.CourseCode + " " + teacherName;
+        document.getElementById('verified11').value = Gcode11.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
-        document.getElementById("sub6_verification").style="display: inline-flex;";
-        document.getElementById("verified6").style="display:inline-flex;";
+        document.getElementById("sub12_verification").style="display: inline-flex;";
+        document.getElementById("verified12").style="display:inline-flex;";
     }else{
-        document.getElementById('verified5').value = "Please Check your verification";
+        document.getElementById('verified11').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
 function code12verified(){
     let Gcode12 = GenerateContainer.find(function(GenerateCode){
-        return GenerateCode.dataID === sub12.value
+        return GenerateCode.dataID === sub12.value && GenerateCode.StudentID === studID.value
     })
     if (sub12.value ===""){
         //don nothing
     }else
     if(Gcode12){
         codecontainer.push(Gcode12.CourseCode);
+        toDelete.push(Gcode12.dataID);
+        toDelete = [...new Set(toDelete)];
         codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
         checksub=12;
         document.getElementById('verified12').value = Gcode12.CourseCode + " " + teacherName;
         document.getElementById("next_button").style="display: block;";
     }else{
-        document.getElementById('verified12').value = "Please Check your verification";
+        document.getElementById('verified12').value = "Please Check your verification & ID!";
         document.getElementById("next_button").style="display: none;";
     }
 }
@@ -364,8 +401,9 @@ async function SaveRegistrationFrom(){
                     subjects : subjectsData.flat().filter((subject) => subject),
             })
             const collectionRef = client.collection("GENERATE_CODE");
-            const docRef = collectionRef.doc(newdataID[i]);
+            const docRef = collectionRef.doc(toDelete[i]);
             docRef.delete()
+            document.getElementById('pop-up-top').style="display: none";
             document.getElementById('pop-up-message').innerHTML="Registered Successful!";
             document.getElementById('pop-up-message').style.textAlign = "center";
             myPopup.classList.add("show");
@@ -527,3 +565,93 @@ async function checkingaccount(){
         document.getElementById("back_button").style="display: none;";
         document.getElementById("password").style="display: none;"
         }
+
+function QrVerification(){
+    let listdata = [];
+    let newlistdata = [];
+    let teacherName;
+    client.collection("GENERATE_CODE").get().then((querySnapshot) => {
+        querySnapshot.forEach((GenerateData) => {
+        const data = GenerateData.data();
+        const stID = GenerateData.id;
+        newdataID.push(GenerateData.id);
+        teacherName = GenerateData.data().TeacherName;
+        listdata.push({ ...data, stID});
+        })
+        let retrieveCode = listdata.find(function(GenerateCode){
+            return GenerateCode.CourseCode === qrResults && GenerateCode.StudentID === studID.value
+        })
+        if (retrieveCode){
+        newlistdata.push(retrieveCode.studID);
+        codecontainer.push(retrieveCode.CourseCode);
+        codecontainer = [...new Set(codecontainer)];
+        GenerateContainer = [...new Set(GenerateContainer)];
+        checksub=1;
+        toDelete.push(retrieveCode.stID);
+        document.getElementById('sub1_verification').value = retrieveCode.stID
+        document.getElementById('verified1').value = retrieveCode.CourseCode + " " + teacherName;
+        document.getElementById("next_button").style="display: block;";
+        document.getElementById("qrsub1").style="display: none;";
+        document.getElementById("verify-button").style="display: none;";
+        }else{
+            document.getElementById('pop-up-message').innerHTML="Please check your QR CODE or Student Number";
+            document.getElementById('pop-up-message').style.textAlign = "center";
+            myPopup.classList.add("show");
+            document.getElementById('sub1_verification').value ="";
+            document.getElementById('verified1').value ="";
+            document.getElementById("next_button").style="display: none;";
+        }
+    })
+}
+
+let qrbtn = document.getElementById('qrsub1');
+
+qrbtn.addEventListener('click', function() {
+    if (studID.value === ""){
+        document.getElementById('pop-up-message').innerHTML="Please enter you student number first!";
+        document.getElementById('pop-up-message').style.textAlign = "center";
+        myPopup.classList.add("show");
+    }else{
+    myqrcode.classList.add("show");
+    function domReady(fn) {
+        if (document.readyState === "complete" || document.readyState === "interactive") {
+            setTimeout(fn, 1);
+        } else {
+            document.addEventListener("DOMContentLoaded", fn);
+        }
+    }
+    domReady(function() {
+        var myqr = document.getElementById('you-qr-result');
+        var lastResult, counterResults = 0;
+        function onScanSuccess(decodeText, decodeResult) {
+            if (decodeText !== lastResult) {
+                ++counterResults;
+                lastResult = decodeText;
+                
+
+                qrResults = decodeText,decodeResult;
+                const Toseperate = qrResults.split(",");
+                qrResults = Toseperate[1];
+                console.log(qrResults);
+                QrVerification();
+                myqrcode.classList.remove("show");
+                myqr.innerHTML = `You scanned ${decodeText}`;
+            }
+            
+        }
+        var htmlscanner = new Html5QrcodeScanner("my-qr-reader", { fps: 10, qrbox: 250 });
+        htmlscanner.render(onScanSuccess);
+    });
+    }
+});
+
+
+    closecamera.addEventListener("click", function () {
+    myqrcode.classList.remove("show");
+    
+  });
+  window.addEventListener("click", function (event) {
+  if (event.target == myqrcode) {
+    myqrcode.classList.remove("show");
+  }
+  });

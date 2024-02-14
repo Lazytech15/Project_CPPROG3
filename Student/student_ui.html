@@ -2,9 +2,20 @@
 <html lang="en">
 
 <head>
+    <title>Student User-Interface</title>
+    <link rel="icon" type="image/png"  href="circuit.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="adjustcss-for-student-ui.css">
+    <script type="text/javascript">
+        var slowLoad = window.setTimeout(function () {
+            alert("The page is taking its sweet time loading. Consider a basic version.");
+        }, 10000); // Set the timeout duration (e.g., 10 seconds)
+    
+        window.addEventListener('load', function () {
+            window.clearTimeout(slowLoad); // Cancel the timeout when the page finishes loading
+        }, false);
+    </script>    
     <title>student interface</title>
 </head>
 
