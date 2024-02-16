@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="admin_style.css">
+</head>
+<body>
+
+    
+                    <div id="student_data_container">
+                        <table class="table" id="table2">
+                            <thead>
+                                <tr id="teacher-table">
+                                    <th>TEACHER ID</th>
+                                    <th>TEACHER NAME</th>
+                                    <th>FILE NAME</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-container"></tbody>
+                        </table>
+                    </div>
+                    <div id="student-table-design" style="display: none;">
+                        <table class="table" id="table">
+                                <tr id="student-table">
+                                    <th>student ID</th>
+                                    <th>Studnet Name</th>
+                                    <th>Academic Year</th>
+                                    <th>Trimester</th>
+                                    <th>Section</th>
+                                    <th>Day</th>
+                                    <th>Time</th>
+                                    <th>Course Code</th>
+                                    <th>Description</th>
+                                    <th>Email</th>
+                                    <th>Prelim Grade</th>
+                                    <th>Midterm Grade</th>
+                                    <th>Final Grade</th>
+                                    <th>Remark</th>
+                                    <th>Credit</th>
+                                    <th>Faculty Name</th>
+                                    <th>ECR Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            <tbody id="student-data-list"></tbody>
+                        </table>
+                    
+                    <div id="table3_container" hidden>
+                        <table class="table" id="table3">
+                            <thead>
+                                <tr id="student-data-table">
+                                    <th>Course Code</th>
+                                    <th>Course Description</th>
+                                    <th>TRIMESTER</th>
+                                    <th>Prelim Grade</th>
+                                    <th>Midterm Grade</th>
+                                    <th>Final Grade</th>
+                                    <th>REMARKS</th>
+                                    <th>Section</th>
+                                    <th>Instructor</th>
+                                    <th>Credit Units</th>
+                                </tr>
+                            </thead>
+                            <tbody id="thirdtrimester"></tbody>
+                        </table>
+                    </div>
+                </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script type="module" src="admin_ui.js"></script>
+</html>
