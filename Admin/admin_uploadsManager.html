@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Accounts Manager</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="pop-up.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="admin_accountsManager.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="checkbox">
+    <label for="checkbox">
+      <i class="fas fa-bars" id="menu-btn"></i>
+    </label>
+
+    <div class="sidebar">
+      <h2><header>Admin</header></h2>
+      <ul>
+        <li ><a href="index.html"><i class="fas fa-home" title="Home"></i> Home</a></li>
+        <li ><a href="admin_pendingaccounts.html"><i class="fas fa-spinner" title="Pending Accounts"></i> Pending Accounts</a></li>
+        <li ><a href="admin_accountsManager.html"><i class="fas fa-users" title="Accounts Manager"></i> Accounts Manager</a></li>
+        <li class="currentnav"><a href=""><i class="fas fa-stream" title="Uploads Manager"></i> Uploads Manager</a></li> 
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container" style="margin-left: 30px;">
+      
+        <div class="panel-container" id = "pending" style="width: 700px;">
+          <h3>Pending Accounts</h3>
+            <div class="table-container overflow">
+              <table id="pendingAccTable">
+                <thead >
+                  <tr>
+                    <th>TeacherID</th>
+                    <th>File Name</th>
+                    <th>uploadedOn</th>
+                    <th>uploadedBy</th>
+                    <th>Term</th>
+                    <th>Course Code</th>
+                    <th>Section</th>
+                    <th>Trimester</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <!-- Table rows will be dynamically added here -->
+                </tbody>
+              </table>
+            </div>
+
+            <button class="btn-solid full mb-lg" id="selectAllpend_button" style="margin-bottom: 10px;">Select All</button>
+            <button class="btn-solid full mb-lg" id="approve_button" style="margin-bottom: 10px;">Approve</button>
+            <button class="btn-solid full mb-lg" id="reject_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Reject</button>
+            
+        </div>
+        
+
+        <div class="panel-container" id = "accountsContainer" style="width: 700px;">
+          <h3>Teacher Accounts</h3>
+            <div class="table-container overflow">
+              <table  id="accountsTable">
+                <thead>
+                  <tr>
+                    <th>TeacherID</th>
+                    <th style="width: 200px;">Name</th>
+                    <th>Password</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Table rows will be dynamically added here -->
+                </tbody>
+              </table>
+            </div>
+            <button class="btn-solid full mb-lg" id="selectAllAcc_button" style="margin-bottom: 10px;">Select All</button>
+            <button class="btn-solid full mb-lg" id="delete_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Delete</button>
+        </div>
+    </main>
+    
+    <div id="myPopup" class="popup">
+      <div class="popup-content">
+            <span id="pop-up-top">System Notice!</span>
+            <br>
+          <p id="pop-up-message"></p>
+          <br>
+          <a id="closePopup">Close</a>
+      </div>
+    </div>
+    <script type="module" src="admin_accountsManager.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+@import url(general.css);
+
+
+
+* {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.sidebar {
+    
+    position: fixed;
+    z-index: 1000; 
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: var(--clr-primary);
+    left: -200px;
+    transition: .2s;
+}
+
+.sidebar header {
+    background: ;
+    color: white;
+    text-align: center;
+    padding: 5%;   
+}
+
+.sidebar ul a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 50px;
+    color: white;
+    padding-left: 10px;
+    
+}
+
+ul li a:hover{
+    background-color: var(--clr-primary-95);
+    color: black;
+    
+}
+
+.currentnav{
+    border: 2px solid white;
+}
+
+#checkbox {
+    display: none;
+}
+
+label #menu-btn {
+    color: white;
+    position: fixed;
+    font-size: x-large;
+    border: 2px solid white;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    z-index: 1001;
+    margin: 10px;
+    
+}
+
+.sidebar i {
+    float: right;
+    text-align: center;
+    margin: 13px;
+    font-size: x-large;
+}
+
+
+
+#checkbox:checked ~ .sidebar {
+    left: 0;
+    
+}
+
+#checkbox:checked ~ .sidebar i {
+    float: left;
+    text-align: center;
+    margin: 13px;
+    font-size: x-large;
+}
+

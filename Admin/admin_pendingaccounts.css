@@ -1,0 +1,84 @@
+@import url(general.css);
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&family=Roboto&display=swap');
+
+
+.main-container {
+    /* outline: 1px solid; */
+    flex-direction: column;
+    max-width: 1536px;
+    
+}
+
+.float-right {
+    float: right;
+}
+
+#pendingContainer,
+#accountsContainer{
+    height: 700px;
+}
+
+.table-container {
+    
+    height: 430px;
+    margin: 20px;
+}
+
+
+.overflow {
+    overflow-y: scroll;
+}
+
+.panel-container {
+    background-color: var(--clr-slate-50);
+    max-width: 1550px;
+    padding: 2rem 2rem 3rem;
+    box-shadow: var(--bx-shadow);
+    border-radius: var(--brd-radius);
+    margin-top: 10px;
+    height: auto;
+   
+}
+
+.select-type {
+    display: flex;
+    background-color: var(--clr-slate-50);
+    max-width: 1550px;
+    padding: 10px;
+    padding-left: 30px;
+    box-shadow: var(--bx-shadow);
+    border-radius: var(--brd-radius);
+    margin-top: 10px;
+    height: auto;
+
+    width: 100%;
+    height: 70px;
+}
+
+.select-type button {
+    margin-left: 10px;
+}
+
+#pendingAccTable,
+#accountsTable {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #pendingAccTable th, #pendingAccTable td,
+  #accountsTable th, #accountsTable td
+   {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+
+ 
+
+  /* Fixed header */
+  #pendingAccTable thead,
+  #accountsTable thead{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
