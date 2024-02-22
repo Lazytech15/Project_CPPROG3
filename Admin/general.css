@@ -93,7 +93,7 @@ h6 {
 .btn-ghost {
     border-radius: var(--brd-radius);
     font-family: var(--fnt-primary);
-    padding: .30rem 1.2rem;
+    padding: .30rem .9rem;
     cursor: pointer;
 }
 
@@ -132,8 +132,11 @@ h6 {
 }
 
 .input-wrapper button{
- 
     margin-left: 10px;
+}
+
+.main-panel button{
+    
 }
 
 /* Forms */
@@ -281,5 +284,14 @@ th {
 }
 
 
-/* Media Query */
+td input[type="checkbox"] {
+    display: block;
+    margin: auto;
+    width: 18px; /* Adjust width */
+    height: 18px; /* Adjust height */
+  }
 
+  td input[type="checkbox"]:checked {
+    background-color: #000000; /* Change background color */
+    border-color: #007bff; /* Change border color */
+  }

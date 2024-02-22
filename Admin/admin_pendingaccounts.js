@@ -41,33 +41,6 @@ const firebaseConfig = {
     //Load Data in tables
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-      const tableBody = document.querySelector('#pendingStudTable tbody');
-      tableBody.innerHTML = ''; // Clear existing rows
-
-      const querySnapshot = await getDocs(collection(db, 'PENDING-STUDENTS', 'STUDENT_DATA'));
-
-      querySnapshot.forEach((doc) => {
-          const subcollectionRef = doc.ref.collection(doc.id); // Replace 'SUBCOLLECTION_NAME' with the actual subcollection name
-          subcollectionRef.get().then((subcollectionSnapshot) => {
-              subcollectionSnapshot.forEach((subDoc) => {
-                  const subData = subDoc.data();
-                  const row = `
-                      <tr>
-                          <td>${doc.id}</td>
-                          <td>${subData.Name}</td>
-                          <td>${subData.password}</td>
-                          <td><input type="checkbox" data-id="${doc.id}" class="accountCheckbox"></td>
-                      </tr>
-                  `;
-                  tableBody.insertAdjacentHTML('beforeend', row);
-              });
-          });
-      });
-  } catch (error) {
-      alert(error);
-  }
-
-  try {
     const tableBody = document.querySelector('#pendingTchrTable tbody');
     tableBody.innerHTML = ''; // Clear existing rows
 
@@ -90,8 +63,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 }
 
     //show students accounts by default
-  pendingStudentsContainer.style.display = 'block'; // Show pendingStudentsContainer
-    pendingTeachersContainer.style.display = 'none'; // Hide pendingTeachersContainer
+  pendingStudentsContainer.style.display = 'none'; // Show pendingStudentsContainer
+    pendingTeachersContainer.style.display = 'block'; // Hide pendingTeachersContainer
 });
 
 /*

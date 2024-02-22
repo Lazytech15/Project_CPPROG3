@@ -127,22 +127,10 @@ document.getElementById('delete_button').addEventListener('click', async () => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-
-  
-  // Get the "Select All" checkbox
-  var selectAllCheckbox = document.getElementById('selectAllTchr');
-
-  // Get all checkboxes in the table rows
-  var checkboxes = document.querySelectorAll('#tchrAccTable tbody input[type="checkbox"]');
-
-  // Add click event listener to "Select All" checkbox
-  selectAllCheckbox.addEventListener('click', function() {
-    alert('wor')
-    // Iterate over all checkboxes in the rows and update their checked property
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = selectAllCheckbox.checked;
-    });
+document.getElementById('selectAllTchr_btn').addEventListener('click',  () => {
+  const checkboxes = document.querySelectorAll('#tchrAccTable tbody input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = !checkbox.checked;
   });
 });
 

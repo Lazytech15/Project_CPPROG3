@@ -136,7 +136,10 @@
                     <th style="width: 200px;">Name</th>
                     <th>Password</th>
                     <th>CreatedAt</th>
-                    <th style="width: 20px;"><input type="checkbox" id="selectAllTchr"></th>
+                    <th><button class="btn-ghost" id="selectAllTchr_btn" style="width: 10px; margin-right: -9px;" title="Select All">
+                            <i class="fas fa-tasks" style="text-align: center; margin-left: -8px; font-size: larger;"></i>
+                        </button>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -144,13 +147,15 @@
                 </tbody>
               </table>
             </div>
+
+            <div class="form-container" style="display: flex;">
+              <button class="btn-solid full mb-lg" id="selectAllTchr_btn" style="margin-bottom: 10px;">Select All</button>
+              <button class="btn-solid full mb-lg" id="delete_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Delete</button>
+            </div>
         </div>
         <div class="side-panel panel-container">
           
-          <div class="form-container">
-            <button class="btn-solid full mb-lg" id="selectAllTchr_btn" style="margin-bottom: 10px;">Select All</button>
-            <button class="btn-solid full mb-lg" id="delete_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Delete</button>
-          </div>
+          
           <br>
           <span class="labels mb-lg">Update User</span>
           
@@ -177,6 +182,8 @@
               <button class="btn-solid full mb-lg" id="delete_button" style="background: red;">Delete Account</button>
             </div>
           </div>   
+
+          
         </div>
 
       </section><!--teacher wrapper-->
