@@ -1,99 +1,125 @@
-<!DOCTYPE HTML>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Accounts Manager</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="general.css">
-    <link rel="stylesheet" href="pop-up.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="admin_accountsManager.css">
+    <title>ADMIN</title>
+    <link rel="icon" type="image/png"  href="circuit.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="general.css">
+    <link rel="stylesheet" type="text/css" href="admin_uploadsManager.css">
+    <link rel="stylesheet" type="text/css" href="sidebar.css">
+    <link rel="stylesheet" type="text/css" href="pop-up.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-
 <body>
-  <nav>
-    <input type="checkbox" id="checkbox">
-    <label for="checkbox">
-      <i class="fas fa-bars" id="menu-btn"></i>
-    </label>
+    <nav>
+        <input type="checkbox" id="checkbox">
+          <label for="checkbox">
+            <i class="fas fa-bars" id="menu-btn"></i>
+          </label>
+    
+        <div class="sidebar">
+          
+          <div class="menu">
+            <ul>
+              <li>
+                <a href="index.html">
+                  <i class="fas fa-home" title="Home"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+              <li>
+                <a href="admin_pendingaccounts.html">
+                  <i class="fas fa-spinner" title="Pending Accounts"></i> 
+                  <span>Pending Accounts</span>
+                </a>
+              </li>
+              <li>
+                <a href="admin_accountsManager.html">
+                  <i class="far fa-user" title="Accounts Manager"></i> 
+                  <span>Accounts Manager</span>
+                </a>
+              </li>
+              <li class="currentnav">
+                <a href="admin_uploadsManager.html">
+                  <i class="fas fa-stream" title="Uploads Manager"></i> 
+                  <span>Uploads Manager</span>
+                </a>
+              </li> 
+              <li class="superadmin" style="margin-top: 10px;">
+                <a href="superadmin_controls.html">
+                  <i class="fas fa-unlock-alt" title="Super Admin Controls"></i> 
+                  <span>S. Admin Controls</span>
+                </a>
+              </li> 
+              <li class="logout">
+                <a href="#" title="Logout">
+                  <i class="fas fa-sign-out-alt"></i> 
+                  <span>Logout</span>
+                </a>
+              </li> 
+            </ul>
+          </div>
+        </div>
+    </nav>
 
-    <div class="sidebar">
-      <h2><header>Admin</header></h2>
-      <ul>
-        <li ><a href="index.html"><i class="fas fa-home" title="Home"></i> Home</a></li>
-        <li ><a href="admin_pendingaccounts.html"><i class="fas fa-spinner" title="Pending Accounts"></i> Pending Accounts</a></li>
-        <li ><a href="admin_accountsManager.html"><i class="fas fa-users" title="Accounts Manager"></i> Accounts Manager</a></li>
-        <li class="currentnav"><a href=""><i class="fas fa-stream" title="Uploads Manager"></i> Uploads Manager</a></li> 
-      </ul>
-    </div>
-  </nav>
-
-  <main class="container" style="margin-left: 30px;">
-      
-        <div class="panel-container" id = "pending" style="width: 700px;">
-          <h3>Pending Accounts</h3>
-            <div class="table-container overflow">
-              <table id="pendingAccTable">
-                <thead >
-                  <tr>
-                    <th>TeacherID</th>
-                    <th>File Name</th>
-                    <th>uploadedOn</th>
-                    <th>uploadedBy</th>
-                    <th>Term</th>
-                    <th>Course Code</th>
-                    <th>Section</th>
-                    <th>Trimester</th>
-                  </tr>
+    <main class="main-container">
+        <div class="table-sub-container" id="table-sub-container">
+            <table class="table" id="table2">
+                <thead>
+                    <tr id="teacher-table">
+                        <th>TEACHER ID</th>
+                        <th>TEACHER NAME</th>
+                        <th>FILE NAME</th>
+                        <th>Email Address</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
                 </thead>
-                <tbody >
-                  <!-- Table rows will be dynamically added here -->
-                </tbody>
-              </table>
-            </div>
-
-            <button class="btn-solid full mb-lg" id="selectAllpend_button" style="margin-bottom: 10px;">Select All</button>
-            <button class="btn-solid full mb-lg" id="approve_button" style="margin-bottom: 10px;">Approve</button>
-            <button class="btn-solid full mb-lg" id="reject_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Reject</button>
-            
+                <tbody id="student-container"></tbody>
+            </table>
+        </div>
+        <div class="table-sub-container" id="student-data" style="display: none;">
+           
+            <table class="table" id="table">
+                    <tr id="student-table">
+                        <th>STUDENT ID</th>
+                        <th>STUDENT NAME</th>
+                        <th>ACADEMIC YEAR</th>
+                        <th>TRIMESTER</th>
+                        <th>SECTION</th>
+                        <th>DAY</th>
+                        <th>TIME</th>
+                        <th>COURSE CODE</th>
+                        <th>COURSE DESCRIPTION</th>
+                        <th>EMAIL</th>
+                        <th>PRELIM GRADE</th>
+                        <th>MIDTERM GRADE</th>
+                        <th>FINAL GRADE</th>
+                        <th>REMARK</th>
+                        <th>CREDIT UNIT</th>
+                        <th>FACULTY NAME</th>
+                        <th>ECR NAME</th>
+                        <th>ACTION</th>
+                    </tr>
+                    
+                <tbody id="student-data-list"></tbody>
+            </table>
         </div>
         
-
-        <div class="panel-container" id = "accountsContainer" style="width: 700px;">
-          <h3>Teacher Accounts</h3>
-            <div class="table-container overflow">
-              <table  id="accountsTable">
-                <thead>
-                  <tr>
-                    <th>TeacherID</th>
-                    <th style="width: 200px;">Name</th>
-                    <th>Password</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Table rows will be dynamically added here -->
-                </tbody>
-              </table>
+        <div id="myPopup" class="popup">
+            <div class="popup-content">
+                <span id="pop-up-top">System Notice!</span>
+                <br>
+                <p id="pop-up-message"></p>
+                <br>
+                <a id="closePopup">Close</a>
             </div>
-            <button class="btn-solid full mb-lg" id="selectAllAcc_button" style="margin-bottom: 10px;">Select All</button>
-            <button class="btn-solid full mb-lg" id="delete_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Delete</button>
         </div>
     </main>
-    
-    <div id="myPopup" class="popup">
-      <div class="popup-content">
-            <span id="pop-up-top">System Notice!</span>
-            <br>
-          <p id="pop-up-message"></p>
-          <br>
-          <a id="closePopup">Close</a>
-      </div>
-    </div>
-    <script type="module" src="admin_accountsManager.js"></script>
-
+                    
 </body>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script type="module" src="admin_uploadsManager.js"></script>
 </html>

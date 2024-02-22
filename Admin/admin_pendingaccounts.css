@@ -36,9 +36,7 @@
     padding: 2rem 2rem 3rem;
     box-shadow: var(--bx-shadow);
     border-radius: var(--brd-radius);
-    margin-top: 10px;
-    height: auto;
-   
+    margin-top: 10px;  
 }
 
 .select-type {

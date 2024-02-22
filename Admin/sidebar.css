@@ -3,49 +3,75 @@
 
 
 * {
-    list-style: none;
     margin: 0;
     padding: 0;
-    text-decoration: none;
+}
+
+body {
+    display: flex;
 }
 
 .sidebar {
-    
-    position: fixed;
-    z-index: 1000; 
+    z-index: 1000;
+    position: fixed; 
+    top: 0;
     left: 0;
-    width: 250px;
+    bottom: 0;
+    width:55px;
     height: 100%;
     background-color: var(--clr-primary);
-    left: -200px;
     transition: .2s;
+    transition-delay: .2s;
+    overflow: hidden;
+    
 }
 
-.sidebar header {
-    background: ;
-    color: white;
-    text-align: center;
-    padding: 5%;   
+.sidebar:hover{
+    width: 230px;
+
 }
 
-.sidebar ul a {
-    display: block;
-    height: 100%;
+.menu {
+    height: 88%;
+    padding-top: 80px;
+}
+
+.menu li a {
+    height: 88%;
     width: 100%;
     line-height: 50px;
     color: white;
-    padding-left: 10px;
+    padding: 5px;
+}
+
+.menu a span {
+    overflow: hidden;
+    text-wrap:nowrap;
     
 }
 
-ul li a:hover{
+.menu a {
+    display: flex;
+    text-decoration: none;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu li a:hover{
     background-color: var(--clr-primary-95);
     color: black;
     
 }
 
-.currentnav{
-    border: 2px solid white;
+.menu i {
+    margin-left: 10px;
+    text-align: center;
+    font-size: x-large;
+}
+
+.currentnav {
+
+    border: 1px solid white;
 }
 
 #checkbox {
@@ -65,24 +91,18 @@ label #menu-btn {
     
 }
 
-.sidebar i {
-    float: right;
-    text-align: center;
-    margin: 13px;
-    font-size: x-large;
-}
-
-
-
 #checkbox:checked ~ .sidebar {
-    left: 0;
-    
+    width: 230px;
 }
 
 #checkbox:checked ~ .sidebar i {
-    float: left;
+    
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
     text-align: center;
-    margin: 13px;
-    font-size: x-large;
+    width: 100%;
 }
 

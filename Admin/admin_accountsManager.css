@@ -16,14 +16,10 @@
     float: right;
 }
 
-#pendingContainer,
-#accountsContainer{
-    height: 700px;
-}
 
 .table-container {
     
-    height: 430px;
+    height: 80%;
     margin: 20px;
 }
 
@@ -32,40 +28,39 @@
     overflow-y: scroll;
 }
 
+.teacher-wrapper, 
+.student-wrapper {
+    display: flex;
+    width: 100%;
+    
+}
 
+.main-panel {
+    width: 60%;
+    min-height: 800px;
+}
 
+.side-panel {
+    width: 40%;
+}
+
+.form-container {
+    min-width: 200px;
+    background: rgb(239, 251, 255);
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid rgb(198, 211, 255);
+}
 
 .panel-container {
     background-color: var(--clr-slate-50);
-    max-width: 550px;
+    max-width: 1000px;
     padding: 2rem 2rem 3rem;
     box-shadow: var(--bx-shadow);
     border-radius: var(--brd-radius);
     margin: 10px;
-    height: 600px;
-   
 }
 
-
-#pendingAccTable,
-#accountsTable {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  #pendingAccTable th, #pendingAccTable td,
-  #accountsTable th, #accountsTable td
-   {
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-  }
-
- 
-
-  /* Fixed header */
-  #pendingAccTable thead,
-  #accountsTable thead{
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
+.input-wrapper {
+    display: flex;
+}

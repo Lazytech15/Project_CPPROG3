@@ -16,24 +16,9 @@
     float: right;
 }
 
-#pendingContainer,
-#accountsContainer{
-    height: 700px;
-}
-
-.table-container {
-    
-    height: 430px;
-    margin: 20px;
-}
-
-
 .overflow {
     overflow-y: scroll;
 }
-
-
-
 
 .panel-container {
     background-color: var(--clr-slate-50);
@@ -42,30 +27,43 @@
     box-shadow: var(--bx-shadow);
     border-radius: var(--brd-radius);
     margin: 10px;
-    height: 600px;
-   
+}
+
+#student-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto; 
+}
+th{
+    text-align: center;  
+}
+
+.table-container {
+    overflow-x: hidden;
+}
+
+.table-sub-container {
+
+    overflow-x: auto;
+}
+
+/* Scroll bars */
+.table-sub-container::-webkit-scrollbar {
+    height: 10px;
+}
+
+.table-sub-container::-webkit-scrollbar-track {
+    background-color: var(--clr-secondary-95);
+    border-radius: var(--brd-radius);
+}
+
+.table-sub-container::-webkit-scrollbar-thumb {
+    border-radius: var(--brd-radius);
+    background-color: var(--clr-secondary);
 }
 
 
-#pendingAccTable,
-#accountsTable {
-    border-collapse: collapse;
-    width: 100%;
-  }
 
-  #pendingAccTable th, #pendingAccTable td,
-  #accountsTable th, #accountsTable td
-   {
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-  }
-
- 
-
-  /* Fixed header */
-  #pendingAccTable thead,
-  #accountsTable thead{
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }

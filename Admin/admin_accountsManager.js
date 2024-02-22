@@ -1,14 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyByH0pNuEoNXna4Dj61C2QxIX-AfmFAnq0",
-  authDomain: "antipolo-hackathon-project.firebaseapp.com",
-  databaseURL: "https://antipolo-hackathon-project-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "antipolo-hackathon-project",
-  storageBucket: "antipolo-hackathon-project.appspot.com",
-  messagingSenderId: "88056856756",
-  appId: "1:88056856756:web:9597da80bb7239996bd7e1"
-};
+    apiKey: "AIzaSyByH0pNuEoNXna4Dj61C2QxIX-AfmFAnq0",
+    authDomain: "antipolo-hackathon-project.firebaseapp.com",
+    projectId: "antipolo-hackathon-project",
+    storageBucket: "antipolo-hackathon-project.appspot.com",
+    messagingSenderId: "88056856756",
+    appId: "1:88056856756:web:9597da80bb7239996bd7e1"
+  };
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -20,143 +20,104 @@ const firebaseConfig = {
   
   const db = getFirestore();
 
+  displayStudents();
+  displayTeachers();
+ 
+  var tchrtable = document.getElementById('tchrAccTable');
 
+  // Get the input fields
+  var teacherIdInput = document.getElementById('teacher-id');
+  var teacherNameInput = document.getElementById('teacher-name');
+  var teacherPasswordInput = document.getElementById('teacher-password');
+  
+  // Add click event listener to table rows
+  tchrtable.addEventListener('click', function(event) {
+    // Check if the clicked element is a table cell (td)
+    if (event.target.tagName.toLowerCase() === 'td') {
+      // Get the row of the clicked cell
+      var row = event.target.parentNode;
+      
+      // Get the cells of the row
+      var cells = row.getElementsByTagName('td');
+      
+      // Update input fields with values from the row
+      teacherIdInput.value = cells[0].innerText;
+      teacherNameInput.value = cells[1].innerText;
+      teacherPasswordInput.value = cells[2].innerText;
+    }
+  });
 
     //Load Data in tables
-document.addEventListener('DOMContentLoaded', async () => {
+async function displayStudents() {
   try {
-      const tableBody = document.querySelector('#pendingAccTable tbody');
-      tableBody.innerHTML = ''; // Clear existing rows
-
-      const querySnapshot = await getDocs(collection(db, 'PENDING_ACCOUNTS'));
-
-      querySnapshot.forEach((doc) => {
-          const account = doc.data();
-          const row = `
-              <tr>
-                  <td>${doc.id}</td>
-                  <td>${account.TeacherName}</td>
-                  <td>${account.password}</td>
-                  <td><input type="checkbox" data-id="${doc.id}" class="accountCheckbox"></td>
-              </tr>
-          `;
-          tableBody.insertAdjacentHTML('beforeend', row);
-      });
-  } catch (error) {
-      alert(error);
-  }
-
-  //load official accounts
-  try {
-    const tableBody = document.querySelector('#accountsTable tbody');
+    const tableBody = document.querySelector('#studAccTable tbody');
     tableBody.innerHTML = ''; // Clear existing rows
 
     const querySnapshot = await getDocs(collection(db, 'TEACHER_LIST'));
-
-    querySnapshot.forEach((doc) => {
+  
+    if (querySnapshot) {
+      querySnapshot.forEach((doc) => {
         const account = doc.data();
         const row = `
             <tr>
                 <td>${doc.id}</td>
                 <td>${account.TeacherName}</td>
                 <td>${account.password}</td>
+                <td>${account.createdAt}</td>
                 <td><input type="checkbox" data-id="${doc.id}" class="accountCheckbox"></td>
             </tr>
         `;
         tableBody.insertAdjacentHTML('beforeend', row);
-    });
-} catch (error) {
+      });
+    } else {
+      alert('no document')
+    }
+  
+  } catch (error) {
     alert(error);
 }
-});
+};
 
-/*
-async function displayAccounts() {
+
+async function displayTeachers() {
   try {
-      const tableBody = document.querySelector('#accountsTable tbody');
+      const tableBody = document.querySelector('#tchrAccTable tbody');
       tableBody.innerHTML = ''; // Clear existing rows
 
       const querySnapshot = await getDocs(collection(db, 'TEACHER_LIST'));
-
-      querySnapshot.forEach((doc) => {
+    
+      if (querySnapshot) {
+        querySnapshot.forEach((doc) => {
           const account = doc.data();
           const row = `
               <tr>
                   <td>${doc.id}</td>
                   <td>${account.TeacherName}</td>
                   <td>${account.password}</td>
+                  <td>${account.createdAt}</td>
                   <td><input type="checkbox" data-id="${doc.id}" class="accountCheckbox"></td>
               </tr>
           `;
           tableBody.insertAdjacentHTML('beforeend', row);
-      });
+        });
+      } else {
+        alert('no document')
+      }
   } catch (error) {
       alert(error);
   }
-}*/
+};
     
-document.getElementById('approve_button').addEventListener('click', async () => {
-
-  try {
-    const tableBody = document.querySelector('#pendingAccTable tbody');
-    const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]:checked');
-
-    checkboxes.forEach(async (checkbox) => {
-        const accountId = checkbox.dataset.id;
-        const sourceRef = doc(db, "PENDING_ACCOUNTS", accountId);
-        const docsnap = await getDoc(sourceRef);
-
-        if (docsnap.exists()) {
-            const data = docsnap.data();
-            const destinationRef = collection(db, 'TEACHER_LIST');
-
-            // Move the document to the destination collection
-            await setDoc(doc(destinationRef, accountId), data);
-
-            // Delete the document from the source collection
-            await deleteDoc(sourceRef);
-        }
-    });
-
-
-    document.getElementById('pop-up-message').innerHTML = "Accounts Approved";
-    document.getElementById('pop-up-message').style.textAlign = "center";
-    myPopup.classList.add("show");
-  } catch (error) {
-      alert(error);
-  }
-});
-
-document.getElementById('reject_button').addEventListener('click', async () => {
-
-  try {
-    const tableBody = document.querySelector('#pendingAccTable tbody');
-    const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]:checked');
-
-    checkboxes.forEach(async (checkbox) => {
-        const accountId = checkbox.dataset.id;
-        const sourceRef = doc(db, "PENDING_ACCOUNTS", accountId);
-        await deleteDoc(sourceRef);
-    });
-
-    document.getElementById('pop-up-message').innerHTML = "Accounts Deleted";
-    document.getElementById('pop-up-message').style.textAlign = "center";
-    myPopup.classList.add("show");
-  } catch (error) {
-      alert(error);
-  }
-});
-
 document.getElementById('delete_button').addEventListener('click', async () => {
   try {
     const tableBody = document.querySelector('#accountsTable tbody');
-    const checkboxes = document.querySelectorAll('#accountsTable tbody input[type="checkbox"]:checked');
+    const checkboxes = document.querySelectorAll('#tchrAccTable tbody input[type="checkbox"]:checked');
 
     checkboxes.forEach(async (checkbox) => {
         const accountId = checkbox.dataset.id;
         const sourceRef = doc(db, "TEACHER_LIST", accountId);
         await deleteDoc(sourceRef);
-    });
+    });s
 
     document.getElementById('pop-up-message').innerHTML = "Accounts Deleted";
     document.getElementById('pop-up-message').style.textAlign = "center";
@@ -166,20 +127,27 @@ document.getElementById('delete_button').addEventListener('click', async () => {
   }
 });
 
-document.getElementById('selectAllpend_button').addEventListener('click', async () => {
-  const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]');
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = !checkbox.checked;
+document.addEventListener('DOMContentLoaded', function() {
+
+  
+  // Get the "Select All" checkbox
+  var selectAllCheckbox = document.getElementById('selectAllTchr');
+
+  // Get all checkboxes in the table rows
+  var checkboxes = document.querySelectorAll('#tchrAccTable tbody input[type="checkbox"]');
+
+  // Add click event listener to "Select All" checkbox
+  selectAllCheckbox.addEventListener('click', function() {
+    alert('wor')
+    // Iterate over all checkboxes in the rows and update their checked property
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAllCheckbox.checked;
+    });
   });
 });
 
-document.getElementById('selectAllAcc_button').addEventListener('click', async () => {
-
-  const checkboxes = document.querySelectorAll('#accountsTable tbody input[type="checkbox"]');
-  
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = !checkbox.checked;
-  });
+document.getElementById('jstest').addEventListener('click',  () => {
+  alert("works")
 });
 
 

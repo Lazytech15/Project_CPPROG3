@@ -152,23 +152,7 @@ document.getElementById('approve_button').addEventListener('click', async () => 
 });
 
 document.getElementById('reject_button').addEventListener('click', async () => {
-
-  try {
-    const tableBody = document.querySelector('#pendingAccTable tbody');
-    const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]:checked');
-
-    checkboxes.forEach(async (checkbox) => {
-        const accountId = checkbox.dataset.id;
-        const sourceRef = doc(db, "PENDING_ACCOUNTS", accountId);
-        await deleteDoc(sourceRef);
-    });
-
-    document.getElementById('pop-up-message').innerHTML = "Accounts Deleted";
-    document.getElementById('pop-up-message').style.textAlign = "center";
-    myPopup.classList.add("show");
-  } catch (error) {
-      alert(error);
-  }
+ alert('js working')
 });
 
 document.getElementById('delete_button').addEventListener('click', async () => {

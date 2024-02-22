@@ -15,19 +15,52 @@
 <body>
   <nav>
     <input type="checkbox" id="checkbox">
-    <label for="checkbox">
-      <i class="fas fa-bars" id="menu-btn"></i>
-    </label>
+      <label for="checkbox">
+        <i class="fas fa-bars" id="menu-btn"></i>
+      </label>
 
     <div class="sidebar">
-      <h2><header>Admin</header></h2>
-      <ul>
-        <li ><a href="index.html"><i class="fas fa-home" title="Home"></i> Home</a></li>
-        <li class="currentnav"><a href="" ><i class="fas fa-spinner" title="Pending Accounts"></i> Pending Accounts</a></li>
-        <li ><a href="admin_accountsManager.html"><i class="fas fa-users" title="Accounts Manager"></i> Accounts Manager</a></li>
-        <li ><a href=""><i class="fas fa-stream" title="Uploads Manager"></i> Uploads Manager</a></li> 
-        <li ><a href=""><i class="fas fa-logout" title="Uploads Manager"></i> Uploads Manager</a></li> 
-      </ul>
+      
+      <div class="menu">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class="fas fa-home" title="Home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="currentnav">
+            <a href="admin_pendingaccounts.html">
+              <i class="fas fa-spinner" title="Pending Accounts"></i> 
+              <span>Pending Accounts</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin_accountsManager.html">
+              <i class="far fa-user" title="Accounts Manager"></i> 
+              <span>Accounts Manager</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin_uploadsManager.html">
+              <i class="fas fa-stream" title="Uploads Manager"></i> 
+              <span>Uploads Manager</span>
+            </a>
+          </li> 
+          <li class="superadmin" style="margin-top: 10px;">
+            <a href="superadmin_controls.html">
+              <i class="fas fa-unlock-alt" title="Super Admin Controls"></i> 
+              <span>S. Admin Controls</span>
+            </a>
+          </li> 
+          <li class="logout">
+            <a href="#" title="Logout">
+              <i class="fas fa-sign-out-alt"></i> 
+              <span>Logout</span>
+            </a>
+          </li> 
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -102,8 +135,8 @@
           <a id="closePopup">Close</a>
       </div>
     </div>
-    <script type="module" src="admin_pendingaccounts.js"></script>
+
 
 </body>
-
+<script type="module" src="admin_pendingaccounts.js"></script>
 </html>
