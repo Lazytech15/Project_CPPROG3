@@ -20,7 +20,7 @@
 .table-container {
     
     height: 80%;
-    margin: 20px;
+    margin: px;
 }
 
 
@@ -36,26 +36,20 @@
 }
 
 .main-panel {
-    width: 60%;
+    width: 65%;
     min-height: 800px;
 }
 
 .side-panel {
-    width: 40%;
+    width: 35%;
 }
 
-.form-container {
-    min-width: 200px;
-    background: rgb(239, 251, 255);
-    padding: 15px;
-    border-radius: 20px;
-    border: 1px solid rgb(198, 211, 255);
-}
+
 
 .panel-container {
     background-color: var(--clr-slate-50);
     max-width: 1000px;
-    padding: 2rem 2rem 3rem;
+    padding: 2rem 2rem 3rem 3rem;
     box-shadow: var(--bx-shadow);
     border-radius: var(--brd-radius);
     margin: 10px;

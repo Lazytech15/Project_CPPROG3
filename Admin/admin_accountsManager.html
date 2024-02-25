@@ -30,6 +30,12 @@
             </a>
           </li>
           <li>
+            <a href="\Teacher\Teacher_Workplace.html">
+              <i class="fas fa-file-upload" title="Upload Grades"></i>
+              <span>Upload Grades</span>
+            </a>
+          </li>
+          <li>
             <a href="admin_pendingaccounts.html">
               <i class="fas fa-spinner" title="Pending Accounts"></i> 
               <span>Pending Accounts</span>
@@ -128,15 +134,23 @@
       <section class="teacher-wrapper">
         <div class="main-panel panel-container" id = "teachersContainer">
           <h3>Teacher Accounts</h3>
+          <br>
+          <div class="controls-wrapper">
+            <div class="table-controls-buttons">
+              
+              <button class=" btn-solid green" id="approveTchr_button" >Approve</button>
+              <button class="btn-solid red" id="rejectTchr_button" >Reject</button>
+            </div>
+          </div>
             <div class="table-container overflow">
-              <table  id="tchrAccTable">
+              <table  id="tchrAccTable" >
                 <thead>
                   <tr>
                     <th style="width: 60px;">TeacherID</th>
                     <th style="width: 200px;">Name</th>
                     <th>Password</th>
                     <th>CreatedAt</th>
-                    <th><button class="btn-ghost" id="selectAllTchr_btn" style="width: 10px; margin-right: -9px;" title="Select All">
+                    <th style="width: 38px;"><button class="btn-ghost" id="selectAllTchr_btn" style="width: 10px; margin-right: -9px;" title="Select All">
                             <i class="fas fa-tasks" style="text-align: center; margin-left: -8px; font-size: larger;"></i>
                         </button>
                     </th>
@@ -146,11 +160,6 @@
                   <!-- Table rows will be dynamically added here -->
                 </tbody>
               </table>
-            </div>
-
-            <div class="form-container" style="display: flex;">
-              <button class="btn-solid full mb-lg" id="selectAllTchr_btn" style="margin-bottom: 10px;">Select All</button>
-              <button class="btn-solid full mb-lg" id="delete_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Delete</button>
             </div>
         </div>
         <div class="side-panel panel-container">
@@ -162,7 +171,7 @@
           <div class="form-container">
             <span class="sub-labels">User ID: </span>
             <span class="input-wrapper">
-            <input class="inputs" type="text" id="teacher-id" placeholder="Teacher ID" >
+            <input class="inputs" type="text" id="teacher-id" placeholder="Teacher ID" disabled>
             </span>
 
             <span class="sub-labels">Name: </span>

@@ -30,6 +30,12 @@
                 </a>
               </li>
               <li>
+                <a href="\Teacher\Teacher_Workplace.html">
+                  <i class="fas fa-file-upload" title="Upload Grades"></i>
+                  <span>Upload Grades</span>
+                </a>
+              </li>
+              <li>
                 <a href="admin_pendingaccounts.html">
                   <i class="fas fa-spinner" title="Pending Accounts"></i> 
                   <span>Pending Accounts</span>
@@ -65,48 +71,69 @@
     </nav>
 
     <main class="main-container">
+        <div class="header-wrapper select-type">
+          <h2><span><i class="fas fa-stream" title="Uploads Manager"></i> 
+                  Uploads Manager</span>
+          </h2>
+          <!--<button class="btn-solid " id="selectStudent_btn" >Student</button>
+          <button class="btn-solid " id="selectTeacher_btn" >Teacher</button>-->
+        </div>  
+
+
         <div class="table-sub-container" id="table-sub-container">
             <table class="table" id="table2">
                 <thead>
                     <tr id="teacher-table">
                         <th>TEACHER ID</th>
                         <th>TEACHER NAME</th>
-                        <th>FILE NAME</th>
+                        <th style="width: 300px;">FILE NAME</th>
                         <th>Email Address</th>
                         <th>STATUS</th>
-                        <th>ACTION</th>
+                        <th style="width: 200px;">ACTION</th>
                     </tr>
                 </thead>
                 <tbody id="student-container"></tbody>
             </table>
         </div>
-        <div class="table-sub-container" id="student-data" style="display: none;">
-           
-            <table class="table" id="table">
-                    <tr id="student-table">
-                        <th>STUDENT ID</th>
-                        <th>STUDENT NAME</th>
-                        <th>ACADEMIC YEAR</th>
-                        <th>TRIMESTER</th>
-                        <th>SECTION</th>
-                        <th>DAY</th>
-                        <th>TIME</th>
-                        <th>COURSE CODE</th>
-                        <th>COURSE DESCRIPTION</th>
-                        <th>EMAIL</th>
-                        <th>PRELIM GRADE</th>
-                        <th>MIDTERM GRADE</th>
-                        <th>FINAL GRADE</th>
-                        <th>REMARK</th>
-                        <th>CREDIT UNIT</th>
-                        <th>FACULTY NAME</th>
-                        <th>ECR NAME</th>
-                        <th>ACTION</th>
-                    </tr>
-                    
-                <tbody id="student-data-list"></tbody>
-            </table>
+
+        <div class="modal" id="myModal" style="display: none;">
+          <div class="modal-content">
+            <div>
+              <span>
+                <button class="close-btn"><i class="fa fa-window-close"></i></button>
+              </span>
+            </div>
+
+            <div class="table-sub-container" id="student-data">
+              
+              <table class="table" id="table">
+                      <tr id="student-table">
+                          <th>STUDENT ID</th>
+                          <th>STUDENT NAME</th>
+                          <th>ACADEMIC YEAR</th>
+                          <th>TRIMESTER</th>
+                          <th>SECTION</th>
+                          <th>DAY</th>
+                          <th>TIME</th>
+                          <th>COURSE CODE</th>
+                          <th>COURSE DESCRIPTION</th>
+                          <th>EMAIL</th>
+                          <th>PRELIM GRADE</th>
+                          <th>MIDTERM GRADE</th>
+                          <th>FINAL GRADE</th>
+                          <th>REMARK</th>
+                          <th>CREDIT UNIT</th>
+                          <th>FACULTY NAME</th>
+                          <th>ECR NAME</th>
+                          <th>ACTION</th>
+                      </tr>
+                      
+                  <tbody id="student-data-list"></tbody>
+              </table>
+          </div>
+          </div>
         </div>
+        
         
         <div id="myPopup" class="popup">
             <div class="popup-content">

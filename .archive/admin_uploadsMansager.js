@@ -20,33 +20,38 @@ const firebaseConfig = {
   
   const db = getFirestore();
 
-    // Get references to the buttons and containers of Teacher and students 
-    const selectStudentBtn = document.getElementById('selectStudent_btn');
-    const selectTeacherBtn = document.getElementById('selectTeacher_btn');
-    const pendingStudentsContainer = document.getElementById('pendingStudents');
-    const pendingTeachersContainer = document.getElementById('pendingTeachers');
 
-    /*
-    // Add event listeners to the buttons
-    selectStudentBtn.addEventListener('click', function() {
-        pendingStudentsContainer.style.display = 'block'; // Show pendingStudentsContainer
-        pendingTeachersContainer.style.display = 'none'; // Hide pendingTeachersContainer
-    });
-
-    selectTeacherBtn.addEventListener('click', function() {
-        pendingStudentsContainer.style.display = 'none'; // Hide pendingStudentsContainer
-        pendingTeachersContainer.style.display = 'block'; // Show pendingTeachersContainer
-    });
-    */
 
     //Load Data in tables
 document.addEventListener('DOMContentLoaded', async () => {
-  //alert('err')
   try {
-    const tableBody = document.querySelector('#pendingTchrTable tbody');
+      const tableBody = document.querySelector('#pendingAccTable tbody');
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      const querySnapshot = await getDocs(collection(db, 'PENDING_ACCOUNTS'));
+
+      querySnapshot.forEach((doc) => {
+          const account = doc.data();
+          const row = `
+              <tr>
+                  <td>${doc.id}</td>
+                  <td>${account.TeacherName}</td>
+                  <td>${account.password}</td>
+                  <td><input type="checkbox" data-id="${doc.id}" class="accountCheckbox"></td>
+              </tr>
+          `;
+          tableBody.insertAdjacentHTML('beforeend', row);
+      });
+  } catch (error) {
+      alert(error);
+  }
+
+  //load official accounts
+  try {
+    const tableBody = document.querySelector('#accountsTable tbody');
     tableBody.innerHTML = ''; // Clear existing rows
 
-    const querySnapshot = await getDocs(collection(db, 'PENDING-TEACHERS'));
+    const querySnapshot = await getDocs(collection(db, 'TEACHER_LIST'));
 
     querySnapshot.forEach((doc) => {
         const account = doc.data();
@@ -63,10 +68,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 } catch (error) {
     alert(error);
 }
-
-    //show students accounts by default
-  pendingStudentsContainer.style.display = 'none'; // Show pendingStudentsContainer
-    pendingTeachersContainer.style.display = 'block'; // Hide pendingTeachersContainer
 });
 
 /*
@@ -127,7 +128,23 @@ document.getElementById('approve_button').addEventListener('click', async () => 
 });
 
 document.getElementById('reject_button').addEventListener('click', async () => {
- alert('js working')
+
+  try {
+    const tableBody = document.querySelector('#pendingAccTable tbody');
+    const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]:checked');
+
+    checkboxes.forEach(async (checkbox) => {
+        const accountId = checkbox.dataset.id;
+        const sourceRef = doc(db, "PENDING_ACCOUNTS", accountId);
+        await deleteDoc(sourceRef);
+    });
+
+    document.getElementById('pop-up-message').innerHTML = "Accounts Deleted";
+    document.getElementById('pop-up-message').style.textAlign = "center";
+    myPopup.classList.add("show");
+  } catch (error) {
+      alert(error);
+  }
 });
 
 document.getElementById('delete_button').addEventListener('click', async () => {
@@ -149,8 +166,11 @@ document.getElementById('delete_button').addEventListener('click', async () => {
   }
 });
 
-document.getElementById('selectAllTchr_button').addEventListener('click', async () => {
-  alert('eror')
+document.getElementById('selectAllpend_button').addEventListener('click', async () => {
+  const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = !checkbox.checked;
+  });
 });
 
 document.getElementById('selectAllAcc_button').addEventListener('click', async () => {

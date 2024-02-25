@@ -3,12 +3,14 @@
 
 
 * {
+    color: var(--clr-primary);
     margin: 0;
     padding: 0;
 }
 
 body {
     display: flex;
+    color: rgb(26, 24, 24);
 }
 
 .sidebar {
@@ -19,21 +21,23 @@ body {
     bottom: 0;
     width:55px;
     height: 100%;
-    background-color: var(--clr-primary);
-    transition: .2s;
+    background: var(--clr-slate-50);
+    transition: all .2s;
     transition-delay: .2s;
     overflow: hidden;
-    
+
 }
 
 .sidebar:hover{
     width: 230px;
+    
 
 }
 
 .menu {
     height: 88%;
     padding-top: 80px;
+    transition: .5s;
 }
 
 .menu li a {
@@ -55,12 +59,11 @@ body {
     text-decoration: none;
     gap: 20px;
     align-items: center;
+
 }
 
 .menu li a:hover{
-    background-color: var(--clr-primary-95);
-    color: black;
-    
+    background-image: var(--clr-gradient-2);
 }
 
 .menu i {
@@ -70,8 +73,7 @@ body {
 }
 
 .currentnav {
-
-    border: 1px solid white;
+    border: 2px solid var(--clr-primary);
 }
 
 #checkbox {

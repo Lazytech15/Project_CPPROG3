@@ -29,6 +29,12 @@
               <span>Home</span>
             </a>
           </li>
+          <li>
+            <a href="\Teacher\Teacher_Workplace.html">
+              <i class="fas fa-file-upload" title="Upload Grades"></i>
+              <span>Upload Grades</span>
+            </a>
+          </li>
           <li class="currentnav">
             <a href="admin_pendingaccounts.html">
               <i class="fas fa-spinner" title="Pending Accounts"></i> 
@@ -67,8 +73,9 @@
      
   <main class="main-container">
          <!-- select account type to show-->
-      <div class="select-type">
-        <h1>Pending Accounts </h1>
+      <div class="header-wrapper select-type">
+        <h2><i class="fas fa-spinner" title="Pending Accounts"></i> 
+          <span>Pending Teacher Accounts</span> </h2>
         <!--<button class="btn-solid " id="selectStudent_btn" >Student</button>
         <button class="btn-solid " id="selectTeacher_btn" >Teacher</button>-->
       </div>  
@@ -93,14 +100,22 @@
               </table>
             </div>
 
+            <div class="form-container">
             <button class="btn-solid full mb-lg" id="selectAllStud_button" style="margin-bottom: 10px;">Select All</button>
             <button class="btn-solid full mb-lg" id="approveStud_button" style="margin-bottom: 10px;">Approve</button>
             <button class="btn-solid full mb-lg" id="rejectStud_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Reject</button>
-            
+            </div>
         </div>
 
         <div class="panel-container" id="pendingTeachers" style="width: 100%;">
-          <h3>Pending Teacher Accounts</h3>
+         
+            <div class="controls-wrapper">
+              <div class="table-controls-buttons">
+                <button class=" btn-solid green" id="approveTchr_button" >Approve</button>
+                <button class="btn-solid red" id="rejectTchr_button">Reject</button>
+              </div>
+            </div>
+
             <div class="table-container overflow">
               <table id="pendingTchrTable">
                 <thead >
@@ -118,9 +133,7 @@
               </table>
             </div>
 
-            <button class="btn-solid full mb-lg" id="selectAllTchr_button" style="margin-bottom: 10px;">Select All</button>
-            <button class="btn-solid full mb-lg" id="approveTchr_button" style="margin-bottom: 10px;">Approve</button>
-            <button class="btn-solid full mb-lg" id="rejectTchr_button" style="margin-bottom: 10px; background: rgb(197, 0, 0);" >Reject</button>
+            
         </div>
       
       </main>

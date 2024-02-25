@@ -59,9 +59,8 @@ function csvData(student) {
       <td>${students.Status}</td>
       <td>
         <button class="btn-ghost view-btn">Details</button>
-        <button class="btn-solid approve-btn">Approved</button>
-        <button class="btn-solid deny-btn">Denied</button>
-        <button class="btn-ghost close-btn">Closed</button>
+        <button class="btn-solid green approve-btn">Approved</button>
+        <button class="btn-solid red deny-btn">Denied</button>
       </td>
     `;
     tableBody.appendChild(row);
@@ -70,14 +69,23 @@ function csvData(student) {
     const viewButton = row.querySelector('.view-btn');
     const approveButton = row.querySelector('.approve-btn');
     const denyButton = row.querySelector('.deny-btn');
-    const closeButton = row.querySelector('.close-btn');
+    const closeButton = document.getElementById('.close-btn');
 
      // Attach event listeners
      viewButton.addEventListener('click', () => {
       // Handle approval logic (e.g., update status to "Approved")
       viewData(`${students.File_Name}`,`${students.Email_Address}`,`${students.Teacher_Name}`);
-      document.getElementById("student-data").style="display: block;";
+      document.getElementById("myModal").style="display: flex;";
     });
+
+    //Modal exit..
+var modal = document.getElementById("myModal");
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
 
      approveButton.addEventListener('click', () => {
       // Handle approval logic (e.g., update status to "Approved")

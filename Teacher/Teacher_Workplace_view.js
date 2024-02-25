@@ -89,7 +89,6 @@ function savedata(){
             skipEmptyLines: true,
             complete: function(result){
             results=result;
-                
             }
             
   
@@ -104,6 +103,7 @@ function savedata(){
                     skipEmptyLines: true,
                     complete: function(result){
                     results=result;
+                    
                         
                     }
                     

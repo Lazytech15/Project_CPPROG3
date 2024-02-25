@@ -52,7 +52,7 @@ async function SaveRegistrationFrom(){
             
                 else{
                 const listsub = ["SELECT SUBJECTS"];
-                var ref = doc(db, "TEACHER_LIST",teacher_id.value);
+                var ref = doc(db, "PENDING-TEACHERS",teacher_id.value);
                     setDoc( 
                     ref, {
                     TeacherID : teacher_id.value,

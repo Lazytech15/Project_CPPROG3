@@ -89,7 +89,6 @@ header {
 /* Dropzone */
 .input-file-container {
     margin-top: 5rem;
-    
 }
 
 #input-file {
@@ -105,9 +104,8 @@ header {
     font-size: small;
     color: var(--clr-slate-600);
     display: inline-block;
-    max-width: 700px;
-    min-height: 450px;
-    max-height: 600px;
+    max-width: 250px;
+    height: 150px;
     margin: 0 auto;
     /* aspect-ratio: 2/1; */
     cursor: pointer;

@@ -30,12 +30,12 @@
 }
 
 #student-data {
-    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 80%;
+    width: 98%;
     margin: 0 auto; 
+    
 }
 th{
     text-align: center;  
@@ -50,20 +50,63 @@ th{
     overflow-x: auto;
 }
 
-/* Scroll bars */
-.table-sub-container::-webkit-scrollbar {
-    height: 10px;
+.modal thead th {
+    position: sticky;
+    top: 0;
+    color: #000;
+    background: var(--clr-primary) !important; /* Ensures the background remains white */
+    z-index: 1; /* Ensures the headers appear above the table content */
+    border: 0px solid var(--clr-primary-95);
 }
 
-.table-sub-container::-webkit-scrollbar-track {
-    background-color: var(--clr-secondary-95);
-    border-radius: var(--brd-radius);
+tbody tr:hover {
+    background: no-repeat;
 }
 
-.table-sub-container::-webkit-scrollbar-thumb {
-    border-radius: var(--brd-radius);
-    background-color: var(--clr-secondary);
-}
-
+/* css for modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--clr-slate);
+    border: 1px solid #888;
+    width: 90%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    margin-left: 55px;
+    padding: 20px;
+  }
+  
+  /* Close button */
+  .close-btn {
+    color: #c90000;
+    background: transparent;
+    border: none;
+    top: 0;
+    margin: -19px -10px -5px 0px;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .close-btn:hover,
+  .close-btn:focus {
+    color: rgb(255, 0, 0);
+    text-decoration: none;
+    cursor: pointer;
+  }
 
 
