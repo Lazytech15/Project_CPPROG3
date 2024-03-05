@@ -431,3 +431,7 @@ td input[type="checkbox"] {
     background-color: #000000; /* Change background color */
     border-color: #007bff; /* Change border color */
   }
+
+.hidden {
+    display: none;
+}

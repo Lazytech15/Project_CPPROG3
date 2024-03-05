@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${doc.id}</td>
                 <td>${account.TeacherName}</td>
                 <td>${account.password}</td>
+                <td>${account.createdAt}</td>
                 <td><input type="checkbox" data-id="${doc.id}" class="accountCheckbox"></td>
             </tr>
         `;
@@ -94,15 +95,13 @@ async function displayAccounts() {
   }
 }*/
     
-document.getElementById('approve_button').addEventListener('click', async () => {
-
+document.getElementById('approveTchr_button').addEventListener('click', async () => {
   try {
-    const tableBody = document.querySelector('#pendingAccTable tbody');
-    const checkboxes = document.querySelectorAll('#pendingAccTable tbody input[type="checkbox"]:checked');
+    const checkboxes = document.querySelectorAll('#pendingTchrTable tbody input[type="checkbox"]:checked');
 
     checkboxes.forEach(async (checkbox) => {
         const accountId = checkbox.dataset.id;
-        const sourceRef = doc(db, "PENDING_ACCOUNTS", accountId);
+        const sourceRef = doc(db, "PENDING-TEACHERS", accountId);
         const docsnap = await getDoc(sourceRef);
 
         if (docsnap.exists()) {
@@ -117,7 +116,6 @@ document.getElementById('approve_button').addEventListener('click', async () => 
         }
     });
 
-
     document.getElementById('pop-up-message').innerHTML = "Accounts Approved";
     document.getElementById('pop-up-message').style.textAlign = "center";
     myPopup.classList.add("show");
@@ -126,22 +124,17 @@ document.getElementById('approve_button').addEventListener('click', async () => 
   }
 });
 
-document.getElementById('reject_button').addEventListener('click', async () => {
- alert('js working')
-});
-
-document.getElementById('delete_button').addEventListener('click', async () => {
+document.getElementById('rejectTchr_button').addEventListener('click', async () => {
   try {
-    const tableBody = document.querySelector('#accountsTable tbody');
-    const checkboxes = document.querySelectorAll('#accountsTable tbody input[type="checkbox"]:checked');
+    const checkboxes = document.querySelectorAll('#pendingTchrTable tbody input[type="checkbox"]:checked');
 
     checkboxes.forEach(async (checkbox) => {
-        const accountId = checkbox.dataset.id;
-        const sourceRef = doc(db, "TEACHER_LIST", accountId);
-        await deleteDoc(sourceRef);
+      const accountId = checkbox.dataset.id;
+      const sourceRef = doc(db, "PENDING-TEACHERS", accountId);
+      await deleteDoc(sourceRef);
     });
 
-    document.getElementById('pop-up-message').innerHTML = "Accounts Deleted";
+    document.getElementById('pop-up-message').innerHTML = "Accounts Rejected";
     document.getElementById('pop-up-message').style.textAlign = "center";
     myPopup.classList.add("show");
   } catch (error) {
@@ -149,19 +142,12 @@ document.getElementById('delete_button').addEventListener('click', async () => {
   }
 });
 
-document.getElementById('selectAllTchr_button').addEventListener('click', async () => {
-  alert('eror')
-});
-
-document.getElementById('selectAllAcc_button').addEventListener('click', async () => {
-
-  const checkboxes = document.querySelectorAll('#accountsTable tbody input[type="checkbox"]');
-  
+document.getElementById('selectAllTchr_btn').addEventListener('click', async () => {
+  const checkboxes = document.querySelectorAll('#pendingTchrTable tbody input[type="checkbox"]');
   checkboxes.forEach((checkbox) => {
     checkbox.checked = !checkbox.checked;
   });
 });
-
 
 closePopup.addEventListener("click", function () {
   myPopup.classList.remove("show");

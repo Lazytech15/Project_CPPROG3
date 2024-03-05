@@ -23,29 +23,35 @@ const firebaseConfig = {
   displayStudents();
   displayTeachers();
  
-  var tchrtable = document.getElementById('tchrAccTable');
-
-  // Get the input fields
-  var teacherIdInput = document.getElementById('teacher-id');
-  var teacherNameInput = document.getElementById('teacher-name');
-  var teacherPasswordInput = document.getElementById('teacher-password');
-  
-  // Add click event listener to table rows
-  tchrtable.addEventListener('click', function(event) {
-    // Check if the clicked element is a table cell (td)
-    if (event.target.tagName.toLowerCase() === 'td') {
-      // Get the row of the clicked cell
-      var row = event.target.parentNode;
-      
-      // Get the cells of the row
-      var cells = row.getElementsByTagName('td');
-      
-      // Update input fields with values from the row
-      teacherIdInput.value = cells[0].innerText;
-      teacherNameInput.value = cells[1].innerText;
-      teacherPasswordInput.value = cells[2].innerText;
-    }
+  closePopup.addEventListener("click", function () {
+    myPopup.classList.remove("show");
   });
+  
+    //code to display details of selected row//
+      var tchrtable = document.getElementById('tchrAccTable');
+
+      // Get the input fields
+      var teacherIdInput = document.getElementById('teacher-id');
+      var teacherNameInput = document.getElementById('teacher-name');
+      var teacherPasswordInput = document.getElementById('teacher-password');
+      
+      // Add click event listener to table rows
+      tchrtable.addEventListener('click', function(event) {
+        // Check if the clicked element is a table cell (td)
+        if (event.target.tagName.toLowerCase() === 'td') {
+          // Get the row of the clicked cell
+          var row = event.target.parentNode;
+          
+          // Get the cells of the row
+          var cells = row.getElementsByTagName('td');
+          
+          // Update input fields with values from the row
+          teacherIdInput.value = cells[0].innerText;
+          teacherNameInput.value = cells[1].innerText;
+          teacherPasswordInput.value = cells[2].innerText;
+        }
+      });
+
 
     //Load Data in tables
 async function displayStudents() {
@@ -108,7 +114,7 @@ async function displayTeachers() {
   }
 };
     
-document.getElementById('delete_button').addEventListener('click', async () => {
+document.getElementById('deleteAllTchr_btn').addEventListener('click', async () => {
   try {
     const tableBody = document.querySelector('#accountsTable tbody');
     const checkboxes = document.querySelectorAll('#tchrAccTable tbody input[type="checkbox"]:checked');
@@ -117,7 +123,7 @@ document.getElementById('delete_button').addEventListener('click', async () => {
         const accountId = checkbox.dataset.id;
         const sourceRef = doc(db, "TEACHER_LIST", accountId);
         await deleteDoc(sourceRef);
-    });s
+    });
 
     document.getElementById('pop-up-message').innerHTML = "Accounts Deleted";
     document.getElementById('pop-up-message').style.textAlign = "center";
@@ -127,20 +133,87 @@ document.getElementById('delete_button').addEventListener('click', async () => {
   }
 });
 
-document.getElementById('selectAllTchr_btn').addEventListener('click',  () => {
+var count = 0;
+
+document.getElementById('selectAllTchr_btn').addEventListener('click', () => {
   const checkboxes = document.querySelectorAll('#tchrAccTable tbody input[type="checkbox"]');
+  
   checkboxes.forEach((checkbox) => {
     checkbox.checked = !checkbox.checked;
+    if (checkbox.checked) {
+      count++;
+    }
   });
+  updateSelectedCount(count); // Update count after selecting all checkboxes
 });
 
-document.getElementById('jstest').addEventListener('click',  () => {
-  alert("works")
+document.getElementById('updateTchr_button').addEventListener('click', async () => {
+  try {
+      if(teacherIdInput.value=="" || teacherPasswordInput.value=="" || teacherNameInput.value==""){
+        document.getElementById('pop-up-message').innerHTML = "Select an Account from the table first";
+        document.getElementById('pop-up-message').style.textAlign = "center";
+        myPopup.classList.add("show");
+      }else{
+          const ref = doc(db, "TEACHER_LIST", teacherIdInput.value);
+          await updateDoc(ref, {
+              TeacherName : teacherNameInput.value,
+              password : teacherPasswordInput.value
+          });
+          document.getElementById('pop-up-message').innerHTML = teacherIdInput.value + " Account Updated" ;
+          document.getElementById('pop-up-message').style.textAlign = "center";
+          myPopup.classList.add("show");
+      }
+  } catch (error) {
+      alert(error)
+  }
 });
 
+document.getElementById('deleteTchr_button').addEventListener('click', async () => {
+  try {
+        
+    if(teacherIdInput.value=="" || teacherPasswordInput.value=="" || teacherNameInput.value==""){
+      document.getElementById('pop-up-message').innerHTML = "Select an Account from the table first";
+      document.getElementById('pop-up-message').style.textAlign = "center";
+      myPopup.classList.add("show");
+    }else{
+        const ref = doc(db, "TEACHER_LIST", teacherIdInput.value);
+        const docsnap = await getDoc(ref);
+        if(docsnap.exists()){  
+          await deleteDoc(ref);
+          document.getElementById('pop-up-message').innerHTML = teacherIdInput.value + " Account Deleted" ;
+          document.getElementById('pop-up-message').style.textAlign = "center";
+          myPopup.classList.add("show");
+        } else {
+            alert('Cannot delete, User not found')
+        }  
+    }
+  } catch (error) {
+      alert(error)   
+  }
+});
+// Function to update selected count
+function updateSelectedCount() {
+  const checkboxes = document.querySelectorAll('.accountCheckbox');
+  let selectedCount = 0;
+  checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+          selectedCount++;
+      }
+  });
+  const selectCount = document.querySelector('#selectCount');
+  selectCount.textContent = `${selectedCount} selected`;
+}
 
-closePopup.addEventListener("click", function () {
-  myPopup.classList.remove("show");
-  //location.reload();
+const checkboxes = document.querySelectorAll('#tchrAccTable tbody input[type="checkbox"]');
+checkboxes.addEventListener('click', () => {
+  checkboxes.forEach((checkbox) => {  
+  
+    if (checkbox.checked) {
+      count++;
+    } else {
+      count--;
+    }
+    updateSelectedCount(count); // Update count whenever a checkbox is clicked
+  });
 });
 

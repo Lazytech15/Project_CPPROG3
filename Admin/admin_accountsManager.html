@@ -17,13 +17,13 @@
     <input type="checkbox" id="checkbox">
       <label for="checkbox">
         <i class="fas fa-bars" id="menu-btn"></i>
-    </label>
+      </label>
 
     <div class="sidebar">
       
       <div class="menu">
         <ul>
-          <li>
+          <li class="admin-li ">
             <a href="index.html">
               <i class="fas fa-home" title="Home"></i>
               <span>Home</span>
@@ -35,32 +35,32 @@
               <span>Upload Grades</span>
             </a>
           </li>
-          <li>
+          <li class="admin-li">
             <a href="admin_pendingaccounts.html">
               <i class="fas fa-spinner" title="Pending Accounts"></i> 
               <span>Pending Accounts</span>
             </a>
           </li>
-          <li class="currentnav">
+          <li class="admin-li currentnav">
             <a href="admin_accountsManager.html">
               <i class="far fa-user" title="Accounts Manager"></i> 
               <span>Accounts Manager</span>
             </a>
           </li>
-          <li>
+          <li class="admin-li">
             <a href="admin_uploadsManager.html">
               <i class="fas fa-stream" title="Uploads Manager"></i> 
               <span>Uploads Manager</span>
             </a>
           </li> 
-          <li class="superadmin" style="margin-top: 10px;">
-            <a href="superadmin_controls.html">
+          <li class="superadmin hidden" style="margin-top: 10px;">
+            <a href="\Admin\superadmin_controls.html">
               <i class="fas fa-unlock-alt" title="Super Admin Controls"></i> 
               <span>S. Admin Controls</span>
             </a>
           </li> 
           <li class="logout">
-            <a href="#" title="Logout">
+            <a href="#" title="Logout" id="logoutLink">
               <i class="fas fa-sign-out-alt"></i> 
               <span>Logout</span>
             </a>
@@ -71,7 +71,7 @@
   </nav>
 
   <main class="main-container" >
-    <button class="btn-solid full mb-lg" id="jstest" style="margin-bottom: 10px;">JS TEST</button>
+
 
       <section class="student-wrapper" style="display: none;">
         <div class="main-panel panel-container" id = "studentsContainer">
@@ -137,9 +137,8 @@
           <br>
           <div class="controls-wrapper">
             <div class="table-controls-buttons">
-              
-              <button class=" btn-solid green" id="approveTchr_button" >Approve</button>
-              <button class="btn-solid red" id="rejectTchr_button" >Reject</button>
+              <p id="selectCount">0 selected</p>
+              <button class="btn-solid red" id="deleteAllTchr_btn" >Delete All Selected</button>
             </div>
           </div>
             <div class="table-container overflow">
@@ -176,40 +175,49 @@
 
             <span class="sub-labels">Name: </span>
             <span class="input-wrapper">
-              <input class="inputs" type="text" id="teacher-name" placeholder="Name" >
-              <button class="btn-ghost" id="edit"><i class="far fa-edit"></i></button>
+              <input class="inputs" type="text" id="teacher-name" placeholder="Name" disabled>
+              <button class="btn-ghost" id="editTchrName" onclick="toggleInput('teacher-name')"><i class="far fa-edit"></i></button>
             </span>
             
             <span class="sub-labels">Password: </span>
             <span class="input-wrapper">
-              <input class="inputs" type="text" id="teacher-password" placeholder="Password">
-              <button class="btn-ghost" id="tchrUpdate_button"><i class="far fa-edit"></i></button>
+              <input class="inputs" type="text" id="teacher-password" placeholder="Password" disabled>
+              <button class="btn-ghost" id="editTchrPass" onclick="toggleInput('teacher-password')"><i class="far fa-edit"></i></button>
+              </input>
             </span>
             
             <div class="form-controls">
-              <button class="btn-solid full mb-lg" id="update_button" style="margin-bottom: 10px;">Update</button>
-              <button class="btn-solid full mb-lg" id="delete_button" style="background: red;">Delete Account</button>
+              <button class="btn-solid full mb-lg" id="updateTchr_button" style="margin-bottom: 10px;">Update</button>
+              <button class="btn-solid full mb-lg" id="deleteTchr_button" style="background: red;">Delete Account</button>
             </div>
           </div>   
-
-          
         </div>
 
       </section><!--teacher wrapper-->
   </main>
 
-    <div id="myPopup" class="popup">
-      <div class="popup-content">
-            <span id="pop-up-top">System Notice!</span>
-            <br>
-          <p id="pop-up-message"></p>
+  <div id="myPopup" class="popup">
+    <div class="popup-content">
+          <span id="pop-up-top">System Notice!</span>
           <br>
-          <a id="closePopup">Close</a>
-      </div>
+        <p id="pop-up-message"></p>
+        <br>
+        <a id="closePopup">Close</a>
     </div>
+  </div>
 
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 <script type="module" src="admin_accountsManager.js"></script>
+<script src="general_admin.js"></script>
+
+<script>
+  //toggle input for edit
+  function toggleInput(inputId) {
+    var input = document.getElementById(inputId);
+    input.disabled = !input.disabled;
+    input.style.pointerEvents = input.disabled ? 'none' : 'auto';
+  }
+</script>
 </html>

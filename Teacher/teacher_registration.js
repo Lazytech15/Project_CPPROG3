@@ -14,7 +14,7 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
 
   import {
-    getFirestore, doc, getDoc, collection, addDoc, setDoc, updateDoc, deleteDoc, deleteField
+    getFirestore, doc, getDoc, collection, addDoc, setDoc, updateDoc, deleteDoc, deleteField,  serverTimestamp
   }
   from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
   
@@ -58,7 +58,9 @@ async function SaveRegistrationFrom(){
                     TeacherID : teacher_id.value,
                     TeacherName : first_name.value + " " + middle_initial.value +" "+ last_name.value,
                     password : pass.value,
-                    subjects : listsub
+                    subjects : listsub,
+                    accountType : 'teacher',
+                    createdAt: new Date().toLocaleString()
                     })
                     document.getElementById('pop-up-top').style="display: none";
                     document.getElementById('pop-up-message').innerHTML="Congrats!, Registration Succesfully!";

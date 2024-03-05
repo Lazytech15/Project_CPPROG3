@@ -23,7 +23,7 @@
       
       <div class="menu">
         <ul>
-          <li>
+          <li class="admin-li ">
             <a href="index.html">
               <i class="fas fa-home" title="Home"></i>
               <span>Home</span>
@@ -35,32 +35,32 @@
               <span>Upload Grades</span>
             </a>
           </li>
-          <li class="currentnav">
+          <li class="admin-li currentnav">
             <a href="admin_pendingaccounts.html">
               <i class="fas fa-spinner" title="Pending Accounts"></i> 
               <span>Pending Accounts</span>
             </a>
           </li>
-          <li>
+          <li class="admin-li">
             <a href="admin_accountsManager.html">
               <i class="far fa-user" title="Accounts Manager"></i> 
               <span>Accounts Manager</span>
             </a>
           </li>
-          <li>
+          <li class="admin-li">
             <a href="admin_uploadsManager.html">
               <i class="fas fa-stream" title="Uploads Manager"></i> 
               <span>Uploads Manager</span>
             </a>
           </li> 
-          <li class="superadmin" style="margin-top: 10px;">
-            <a href="superadmin_controls.html">
+          <li class="superadmin hidden" style="margin-top: 10px;">
+            <a href="/Admin/superadmin_controls.html">
               <i class="fas fa-unlock-alt" title="Super Admin Controls"></i> 
               <span>S. Admin Controls</span>
             </a>
           </li> 
           <li class="logout">
-            <a href="#" title="Logout">
+            <a href="#" title="Logout" id="logoutLink">
               <i class="fas fa-sign-out-alt"></i> 
               <span>Logout</span>
             </a>
@@ -91,7 +91,7 @@
                     <th style="width: 200px;">Name</th>
                     <th>Password</th>
                     
-                    <th>Approve</th>
+                    <th style="width: 20px;">Approve</th>
                   </tr>
                 </thead>
                 <tbody >
@@ -120,11 +120,14 @@
               <table id="pendingTchrTable">
                 <thead >
                   <tr>
-                    <th>TeacherID</th>
-                    <th style="width: 200px;">Name</th>
-                    <th>Password</th>
-                    
-                    <th>Approve</th>
+                    <th style="width: 20%;">TeacherID</th>
+                    <th style="width: 30%;">Name</th>
+                    <th style="width: 20%;">Password</th>
+                    <th style="width: 26%;">CreatedAt</th>
+                    <th style="width: 5%;"><button class="btn-ghost" id="selectAllTchr_btn" style="width: 10px; margin-right: -9px;" title="Select All">
+                      <i class="fas fa-tasks" style="text-align: center; margin-left: -8px; font-size: larger;"></i>
+                      </button>
+                    </th>
                   </tr>
                 </thead>
                 <tbody >
@@ -152,4 +155,5 @@
 
 </body>
 <script type="module" src="admin_pendingaccounts.js"></script>
+<script src="general_admin.js"></script>
 </html>

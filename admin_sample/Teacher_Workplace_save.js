@@ -33,7 +33,8 @@ const firebaseConfig = {
     const teacher_name = localStorage.getItem('teacher_name');
     let codecontainer = [];
     let subjectsData =[];
-    let pass,email;
+    let email;
+    let pass;
     let allsubs = []; 
     let imageqr = document.getElementById("displayQR");
     let tname = document.getElementById("tname");

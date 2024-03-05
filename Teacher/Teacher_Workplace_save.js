@@ -50,8 +50,8 @@ const firebaseConfig = {
 const submitBtn = document.getElementById('submit-button');
     
     document.getElementById('submit-button').addEventListener('click', ()=>{
-
-                codecontainer.push(results.data[0].COURSE_CODE);
+        try {
+            codecontainer.push(results.data[0].COURSE_CODE);
                 codecontainer = [...new Set(codecontainer)];
                        
                     var ref = doc(db, "PENDING-STUD-DATA",fileName);
@@ -71,56 +71,60 @@ const submitBtn = document.getElementById('submit-button');
                         });
 
                 var ref = doc(db, "TEACHER_LIST", teacher_id);
-                                setDoc(
-                                    ref, {
-                                        TeacherID : teacher_id,
-                                        TeacherName : teacher_name,
-                                        password : pass,
-                                        Email_Address : email,
-                                        subjects : uniqueSubject
-                                        }
-                                 )
-                        document.getElementById('pop-up-top').style="display: none";
-                        document.getElementById('pop-up-message').innerHTML="Data uploaded succesfully, Please be inform that the data will not be automatically distribute, it will go to in academic approval section, Thank you!";
-                        document.getElementById('pop-up-message').style.textAlign = "center";
-                        myPopup.classList.add("show");
-                        cleanUp();
-                    })
+                    setDoc(
+                        ref, {
+                            TeacherID : teacher_id,
+                            TeacherName : teacher_name,
+                            password : pass,
+                            Email_Address : email,
+                            subjects : uniqueSubject
+                            }
+                        )
+                document.getElementById('pop-up-top').style="display: none";
+                document.getElementById('pop-up-message').innerHTML="Data uploaded succesfully, Please be inform that the data will not be automatically distribute, it will go to in academic approval section, Thank you!";
+                document.getElementById('pop-up-message').style.textAlign = "center";
+                myPopup.classList.add("show");
+                cleanUp();
+        } catch (error) {
+            alert(error)
+        }
+    });
 
+    /*
+    async function transferData() {
+        const ref = doc(db, "TEACHER_LIST", teacher_id);
+        const docsnap = await getDoc(ref);
+        if (docsnap.exists()) {
+            tname.value = docsnap.data().TeacherName;
+            email = docsnap.data().Email_Address;
+            allsubs.push(docsnap.data().subjects);
+            allsubs.forEach((subject) => {
+                subjectsData = [subject, codecontainer];
+                const uniqueArray = subjectsData.flat().filter((subject, index, self) => {
+                    return self.indexOf(subject) === index;
+                });
+            });
+            
+            pass = docsnap.data().password;
+            allsubs = docsnap.data().subjects;
+            const selectElement = document.getElementById("select-coursecode");
 
-        async function transferData() {
-                const ref = doc(db, "TEACHER_LIST", teacher_id);
-                const docsnap = await getDoc(ref);
-                if (docsnap.exists()) {
-                    tname.value = docsnap.data().TeacherName;
-                    email = docsnap.data().Email_Address;
-                    allsubs.push(docsnap.data().subjects);
-                    allsubs.forEach((subject) => {
-                        subjectsData = [subject, codecontainer];
-                        const uniqueArray = subjectsData.flat().filter((subject, index, self) => {
-                            return self.indexOf(subject) === index;
-                        });
-                    });
-                    
-                    pass = docsnap.data().password;
-                    allsubs = docsnap.data().subjects;
-                    const selectElement = document.getElementById("select-coursecode");
-        
-                    for (let i = 0; i < allsubs.length; i++) {
-                        const newOption = document.createElement("option");
-                        newOption.text = allsubs[i]; 
-                        newOption.value = allsubs[i]; 
-                        selectElement.add(newOption); 
-                    }
-                    
+            for (let i = 0; i < allsubs.length; i++) {
+                const newOption = document.createElement("option");
+                newOption.text = allsubs[i]; 
+                newOption.value = allsubs[i]; 
+                selectElement.add(newOption); 
+            }      
         }
     }
+    */
+
     viewQR.addEventListener('click', function(){
         let generateQR = generateVerifCode() +","+ selectCourscode.value +","+generateVerifCode()+tname.value;
         imageqr.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + generateQR;
     });     
 
-window.onload = transferData;             
+//window.onload = transferData;             
             
 
     function generateVerifCode() {

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
 </head>
 
 <body>
@@ -23,7 +24,7 @@
       
       <div class="menu">
         <ul>
-          <li class="currentnav">
+          <li class="admin-li currentnav">
             <a href="index.html">
               <i class="fas fa-home" title="Home"></i>
               <span>Home</span>
@@ -35,32 +36,32 @@
               <span>Upload Grades</span>
             </a>
           </li>
-          <li>
+          <li class="admin-li">
             <a href="admin_pendingaccounts.html">
               <i class="fas fa-spinner" title="Pending Accounts"></i> 
               <span>Pending Accounts</span>
             </a>
           </li>
-          <li>
+          <li class="admin-li">
             <a href="admin_accountsManager.html">
               <i class="far fa-user" title="Accounts Manager"></i> 
               <span>Accounts Manager</span>
             </a>
           </li>
-          <li>
+          <li class="admin-li">
             <a href="admin_uploadsManager.html">
               <i class="fas fa-stream" title="Uploads Manager"></i> 
               <span>Uploads Manager</span>
             </a>
           </li> 
-          <li class="superadmin" style="margin-top: 10px;">
+          <li class="superadmin hidden" style="margin-top: 10px;">
             <a href="superadmin_controls.html">
               <i class="fas fa-unlock-alt" title="Super Admin Controls"></i> 
               <span>S. Admin Controls</span>
             </a>
           </li> 
           <li class="logout">
-            <a href="#" title="Logout">
+            <a href="#" title="Logout" id="logoutLink">
               <i class="fas fa-sign-out-alt"></i> 
               <span>Logout</span>
             </a>
@@ -73,10 +74,6 @@
   <main class="main-container">
         <h1 style="text-align: center; vertical-align:middle;  height: 100%;">Welcome Admin!</h1>
   </main>
-
-
-
-
 </body>
-
+    <script src="general_admin.js"></script>
 </html>

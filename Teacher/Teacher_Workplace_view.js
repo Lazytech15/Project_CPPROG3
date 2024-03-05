@@ -161,12 +161,6 @@ function clearTable() {
     }
 }
 
-// Handle logout
-logoutBtn.addEventListener('click', () => {
-    window.open("index.html");
-    window.close();
-})
-
 // Adjust 'main' padding dynamically
 function adjustPaddingTop() {
     const headerHeight = document.querySelector('header').offsetHeight;

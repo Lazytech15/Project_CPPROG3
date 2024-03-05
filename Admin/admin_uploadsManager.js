@@ -98,8 +98,9 @@ window.onclick = function(event) {
     });
 
     denyButton.addEventListener('click', () => {
-      row.querySelector('td:nth-child(4)').textContent = "Rejected";
-      rejectAccount(`${students.File_Name}`,`${students.Email_Address}`,`${students.Teacher_Name}`);
+      alert('errrrr')
+      //row.querySelector('td:nth-child(4)').textContent = "Rejected";
+      //rejectAccount(`${students.File_Name}`,`${students.Email_Address}`,`${students.Teacher_Name}`);
     });
 
     closeButton.addEventListener('click', () => {
@@ -163,8 +164,9 @@ function studentsData(student,filename,email,teacher_name) {
     const denyButton = row.querySelector('.deny-btn');
 
     denyButton.addEventListener('click', () => {
+      alert('err')
       // Handle denial logic (e.g., update status to "Denied")
-      SingleAccount(students,filename,email,teacher_name);
+      //SingleAccount(students,filename,email,teacher_name);
     });
 
   });
@@ -496,7 +498,7 @@ async function rejectAccount(filename,email,teacher_name){
 
 }
 
-async function SingleAccount(account, filename,email,teacher_name) {
+async function SingleAccount(account, filename, email, teacher_name) {
   try {
       const docSnapshot = await db.collection("PENDING-STUD-DATA").doc(filename).get();
       if (docSnapshot.exists) {
